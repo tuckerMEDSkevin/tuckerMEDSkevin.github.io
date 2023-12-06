@@ -14,8 +14,8 @@ const questions = [
   },
   {
     "question": "Where would you bring someone on a date?",
-    "answer1": "under 18",
-    "answer1Total": [1,0,0,0,0],
+    "answer1": "under 15",
+    "answer1Total": [0,0,0,0,0],
     "answer2": "18 - 30",
     "answer2Total": [0,0,0,0,0],
     "answer3": "over 30",
