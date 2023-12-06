@@ -1,1 +1,1 @@
-https://www.tuckerMEDSkevin.github.io
+https://tuckermedskevin.github.io/
