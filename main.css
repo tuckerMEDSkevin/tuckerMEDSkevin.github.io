@@ -121,7 +121,7 @@ button:focus {
   align-items: flex-start;
   padding: 2rem 2rem;
   margin-bottom: 2rem;
-  max-width: calc(30% + 200px);
+  max-width: calc(20% + 400px);
 }
 .summary h1 {
   align-self: center;
