@@ -73,7 +73,7 @@ const questions = [
     "answer3": "Foufs",
     "answer3Total": [0,0,0,53,0],
     "answer4": "Pascal's",
-    "answer4Total": [0,53,0,0,0],
+    "answer4Total": [0,103,0,0,0],
     "answer5": "Quai des Brumes",
     "answer5Total": [53,0,0,0,0]
   },
