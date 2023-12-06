@@ -69,8 +69,6 @@ function loadNextQuestion () {
     ////Add the answer score to the score array
 	
 	score.push(answerScore);
-	
-	console.log(score);
 
     selectedAnswersData.push()
     
