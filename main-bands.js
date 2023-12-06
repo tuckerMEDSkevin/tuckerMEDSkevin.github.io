@@ -97,13 +97,16 @@ function loadNextQuestion () {
 	const allScores = [totalScore0, totalScore1, totalScore2, totalScore3, totalScore4];
 	const yourBand = bands[indexOfMax(allScores)];
 	const yourBandPix = bandsPix[indexOfMax(allScores)];
+	const yourBandLink = bandslinks[indexOfMax(allScores)];
     //If the quiz is finished then we hide the questions container and show the results 
     if(currentQuestion == totalQuestions) {
         container.style.display = 'none';
+		result.style.display = 'flex';
         result.innerHTML =
          `<h1 class="final-score">You are: ${yourBand}</h1>
          <div class="summary">
-            <img src=${yourBandPix}>
+            <p><img src=${yourBandPix}></p>
+			<p><h2><a href="${yourBandLink}">${yourBandLink}</a></h2></p>
         </div>
         <button class="restart">Restart Quiz</button>
          `;

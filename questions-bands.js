@@ -93,4 +93,5 @@ const questions = [
 ];
 
 const bands = ["Sasha Cay", "Seaton Village", "Piss for Pumpkin", "Last Waltzon", "Marlaena Moore"];
+const bandslinks = ["https://sashacay.bandcamp.com/", "https://seatonvillage.bandcamp.com/", "https://pissforpumpkin.bandcamp.com/", "https://lastwaltzon.bandcamp.com/", "https://marlaenamoore.bandcamp.com/"];
 const bandsPix = ["./images/sasha-cay.jpg", "./images/seaton-village.jpg", "./images/piss-for-pumpkin.jpg", "./images/last-waltzon.jpg", "./images/marlaena-moore.jpg"]
