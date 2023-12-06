@@ -88,7 +88,7 @@ const questions = [
     "answer4": "night bus",
     "answer4Total": [0,0,0,54,0],
     "answer5": "metro",
-    "answer5Total": [0,0,0,0,54]
+    "answer5Total": [0,0,54,0,0]
   }
 ];
 
