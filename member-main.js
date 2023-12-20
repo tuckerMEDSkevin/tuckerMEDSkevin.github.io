@@ -44,6 +44,19 @@ function generateQuestions (index) {
     const option5Total = questions[index].answer5Total;
     const option6Total = questions[index].answer6Total;
     //Populate html elements 
+	
+	if (`${question.answer1}` === `${question.answer6}`){
+		document.getElementById('rb6').style.display = "none";
+	}
+	else {
+		document.getElementById('rb6').style.display = "block";
+	}
+	if (`${question.answer2}` === `${question.answer5}`){
+		document.getElementById('rb5').style.display = "none";
+	}
+	else {
+		document.getElementById('rb5').style.display = "block";
+	}
     questionEl.innerHTML = `${index + 1}. ${question.question}`
     option1.setAttribute('data-total', `${option1Total}`);
     option2.setAttribute('data-total', `${option2Total}`);
@@ -51,12 +64,12 @@ function generateQuestions (index) {
     option4.setAttribute('data-total', `${option4Total}`);
     option5.setAttribute('data-total', `${option5Total}`);
     option6.setAttribute('data-total', `${option6Total}`);
-    option1.innerHTML = `${question.answer1}`
-    option2.innerHTML = `${question.answer2}`
-    option3.innerHTML = `${question.answer3}`
-    option4.innerHTML = `${question.answer4}`
-    option5.innerHTML = `${question.answer5}`
-    option6.innerHTML = `${question.answer6}`
+    option1.innerHTML = `${question.answer1}`;
+    option2.innerHTML = `${question.answer2}`;
+    option3.innerHTML = `${question.answer3}`;
+    option4.innerHTML = `${question.answer4}`;
+    option5.innerHTML = `${question.answer5}`;
+    option6.innerHTML = `${question.answer6}`;
 }
 
 
