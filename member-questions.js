@@ -105,7 +105,7 @@ const questions = [
     "answer6Total": [0,0,0,0,49,0]
   },
   {
-    "question": "Roadtrip destionation?",
+    "question": "Roadtrip destination?",
     "answer1": 'Kennebunkport (Maine)',
     "answer1Total": [0,0,0,48,0,0],
     "answer2": 'Saskatchewan',
