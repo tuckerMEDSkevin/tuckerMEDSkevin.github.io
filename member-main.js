@@ -103,9 +103,6 @@ function loadNextQuestion () {
 	score.forEach((element) => totalScore4 += parseInt(element[4]));
 	var totalScore5 = 0;
 	score.forEach((element) => totalScore5 += parseInt(element[5]));
-	console.log(score);
-	console.log(totalScore3);
-	console.log(totalScore0);
 
     //Finally we incement the current question number ( to be used as the index for each array)
     currentQuestion++;
