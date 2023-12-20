@@ -122,7 +122,8 @@ function loadNextQuestion () {
     if(currentQuestion == totalQuestions) {
         container.style.display = 'none';
 		result.style.display = 'flex';
-		var audio = new Audio('./audio/${yourKDAudio}');
+		var audio = new Audio(`./audio/${yourKDAudio}`);
+		audio.volume = 0.3;
 		audio.play();
         result.innerHTML =
          `<h1 class="final-score">You are: ${yourKD}</h1>

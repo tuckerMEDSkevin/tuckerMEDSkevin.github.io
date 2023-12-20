@@ -122,5 +122,5 @@ const questions = [
 ];
 
 const kdmember = ["Liz", "Felix", "Harry", "Emily", "Kelly", "Zach"];
-const kdmemberAudio = ["./audio/porkbeans.mp3", "./audio/porkbeans.mp3", "./audio/porkbeans.mp3", "./audio/emily.jpg", "./audio/porkbeans.mp3", "./audio/porkbeans.mp3"];
+const kdmemberAudio = ["porkbeans.mp3", "porkbeans.mp3", "porkbeans.mp3", "porkbeans.mp3", "porkbeans.mp3", "porkbeans.mp3"];
 const kdmemberPix = ["./images/liz.jpg", "./images/felix.jpg", "./images/harry.jpg", "./images/emily.jpg", "./images/kelly.jpg", "./images/zach.jpg"]
