@@ -17,7 +17,7 @@ const questions = [
   {
     "question": "Your vibe at a show:",
     "answer1": 'smoking outside for half the show',
-    "answer2Total": [50,0,0,0,0,0],
+    "answer1Total": [50,0,0,0,0,0],
     "answer2": 'getting tipsy',
     "answer2Total": [0,0,50,0,0,0],
     "answer3": 'sitting near the door',
@@ -32,7 +32,7 @@ const questions = [
   {
     "question": "dep combo?",
     "answer1": 'Twix + Lacroix pineapple cider',
-    "answer2Total": [0,0,0,0,0,54],
+    "answer1Total": [0,0,0,0,0,54],
     "answer2": 'beer + Doritos',
     "answer2Total": [0,0,54,0,0,0],
     "answer3": "Reese's peanut butter cups + Snapple",
@@ -47,7 +47,7 @@ const questions = [
   {
     "question": "How horny are you?",
     "answer1": 'reformed slut',
-    "answer2Total": [52,0,0,0,0,0],
+    "answer1Total": [52,0,0,0,0,0],
     "answer2": 'partnered + satisfied',
     "answer2Total": [0,0,52,0,0,0],
     "answer3": 'redownloading hinge',
@@ -62,7 +62,7 @@ const questions = [
   {
     "question": "Venue of choice?",
     "answer1": 'Casa del Popolo',
-    "answer2Total": [47,0,0,47,0,0],
+    "answer1Total": [47,0,0,47,0,0],
     "answer2": 'mai/son mtl',
     "answer2Total": [0,0,0,0,47,0],
     "answer3": 'the bog (st-henri)',
@@ -77,7 +77,7 @@ const questions = [
   {
     "question": "Average thursday evening?",
     "answer1": 'laying face down asleep with all the lights on',
-    "answer2Total": [0,0,0,0,0,51],
+    "answer1Total": [0,0,0,0,0,51],
     "answer2": 'scheming',
     "answer2Total": [0,0,0,51,0,0],
     "answer3": 'topless playing runescape',
@@ -92,7 +92,7 @@ const questions = [
   {
     "question": "Your mode of communication:",
     "answer1": 'tiktok DM',
-    "answer2Total": [0,0,0,0,0,69],
+    "answer1Total": [0,0,0,0,0,69],
     "answer2": 'phone call',
     "answer2Total": [49,0,49,0,0,0],
     "answer3": 'instagram DM',
@@ -107,7 +107,7 @@ const questions = [
   {
     "question": "Roadtrip destionation?",
     "answer1": 'Kennebunkport (Maine)',
-    "answer2Total": [0,0,0,48,0,0],
+    "answer1Total": [0,0,0,48,0,0],
     "answer2": 'Saskatchewan',
     "answer2Total": [0,0,0,0,0,48],
     "answer3": 'I only take flights (Iceland)',
