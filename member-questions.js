@@ -122,5 +122,5 @@ const questions = [
 ];
 
 const kdmember = ["Liz", "Felix", "Harry", "Emily", "Kelly", "Zach"];
-const kdmemberLinks = ["https://sashacay.bandcamp.com/", "https://seatonvillage.bandcamp.com/", "https://pissforpumpkin.bandcamp.com/", "https://lastwaltzon.bandcamp.com/", "https://marlaenamoore.bandcamp.com/", ""];
+const kdmemberAudio = ["./audio/porkbeans.mp3", "./audio/porkbeans.mp3", "./audio/porkbeans.mp3", "./audio/emily.jpg", "./audio/porkbeans.mp3", "./audio/porkbeans.mp3"];
 const kdmemberPix = ["./images/liz.jpg", "./images/felix.jpg", "./images/harry.jpg", "./images/emily.jpg", "./images/kelly.jpg", "./images/zach.jpg"]

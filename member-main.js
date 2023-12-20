@@ -103,6 +103,7 @@ function loadNextQuestion () {
 	score.forEach((element) => totalScore4 += parseInt(element[4]));
 	var totalScore5 = 0;
 	score.forEach((element) => totalScore5 += parseInt(element[5]));
+	console.log(totalScore5);
 
     //Finally we incement the current question number ( to be used as the index for each array)
     currentQuestion++;
@@ -116,11 +117,13 @@ function loadNextQuestion () {
 	const allScores = [totalScore0, totalScore1, totalScore2, totalScore3, totalScore4, totalScore5];
 	const yourKD = kdmember[indexOfMax(allScores)];
 	const yourKDPix = kdmemberPix[indexOfMax(allScores)];
-	const yourKDLink = kdmemberLinks[indexOfMax(allScores)];
+	const yourKDAudio = kdmemberAudio[indexOfMax(allScores)];
     //If the quiz is finished then we hide the questions container and show the results 
     if(currentQuestion == totalQuestions) {
         container.style.display = 'none';
 		result.style.display = 'flex';
+		var audio = new Audio('./audio/${yourKDAudio}');
+		audio.play();
         result.innerHTML =
          `<h1 class="final-score">You are: ${yourKD}</h1>
          <div class="summary">
@@ -130,7 +133,6 @@ function loadNextQuestion () {
         <button class="restart">Restart Quiz</button>
          `;
         return;
-		//<p><h2><a href="${yourKDLink}">${yourKDLink}</a></h2></p>
     }
     generateQuestions(currentQuestion);
 }
