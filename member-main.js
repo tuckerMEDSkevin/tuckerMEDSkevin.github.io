@@ -128,6 +128,7 @@ function loadNextQuestion () {
          `<h1 class="final-score">You are: ${yourKD}</h1>
          <div class="summary">
             <p><img src=${yourKDPix}></p>
+			<p><h2><a href="https://kickdrum.ca/">https://kickdrum.ca/</a></h2></p>
 			
         </div>
         <button class="restart">Restart Quiz</button>
