@@ -1,0 +1,346 @@
+<html>
+<style>
+    .box {
+        float: left;
+        height: 20px;
+        width: 20px;
+        margin-bottom: 15px;
+        border: 1px solid black;
+        clear: both;
+    }
+
+    .black {
+        background-color: #000000;
+    }
+
+    .magnifique {
+        background-color: #bf42f5;
+    }
+
+    .blue {
+        background-color: #0000ff;
+    }
+</style>
+<body>
+
+    <script language="JavaScript">
+        var MODE_DRAW = 1;
+        var MODE_SELECT = 2;
+        var MODE_MOVE = 3;
+        var mode = MODE_DRAW;
+        var NOIR = "#000000";
+        var MAGNIFIQUE = "#bf42f5";
+        var BLEU = "#0000ff";
+        var couleur = NOIR;
+        var isSymetrieEnabled = false;
+    </script>
+
+    <canvas id="myCanvas" width="500" height="600" style="border:2px solid #000000;"> </canvas>
+    <br />
+    <label><input type='radio' name="radio_mode" onclick='setMode(MODE_DRAW);' checked>Draw</label>
+    <label><input type='radio' name="radio_mode" onclick='setMode(MODE_SELECT);'>Rectangle Select</label>
+    <label><input type='radio' name="radio_mode" onclick='setMode(MODE_MOVE);'>Move Selection</label>
+    <button onclick="clearButtonHandler()">Delete All</button>
+    <br />
+    <label><input type='checkbox' name="symetrie_box" onchange='changeState(this);'>Symétrie</label>
+    <br />
+    <label>Couleur de trait: </label>
+    <br />
+    
+    <div>
+        <div class='box black'></div>
+         <label><input type='radio' name="color_mode" onclick='setColor(NOIR);' checked>Noir</label>
+    </div>
+    <br />
+    
+    <div>
+    <div class='box magnifique'></div>
+    <label><input type='radio' name="color_mode" onclick='setColor(MAGNIFIQUE);'>Magnifique</label>
+    </div>
+    <br />
+   
+    <div>
+        <div class='box blue'></div>
+        <label><input type='radio' name="color_mode" onclick='setColor(BLEU);'>Bleu</label>
+    </div>
+
+    <script language="JavaScript">
+
+        var canvas = document.getElementById("myCanvas");
+        var canvas_context = canvas.getContext("2d");
+
+        var mouse_drag_start_x = 0;
+        var mouse_drag_start_y = 0;
+        var mouse_previous_x = 0;
+        var mouse_previous_y = 0;
+        var buttonIsDown = false;
+
+        // this is the set of strokes already drawn
+        var arrayOfStrokes = [];
+
+        // this is the set of strokes that are currently selected
+        var selectedStrokes = [];
+
+        // this is the stroke currently being drawn
+        var stroke = []; // each stroke is an array of points
+        //this is the reflection of the stroke currently being drawn
+        var stroke_sym = [];
+        var current_sym_point = []; //x,y
+
+        function mouseDownHandler(e) {
+            buttonIsDown = true;
+            var canvas_rectangle = canvas.getBoundingClientRect();
+            var event_x = e.clientX - canvas_rectangle.left;
+            var event_y = e.clientY - canvas_rectangle.top;
+            stroke = [];
+            switch (mode) {
+                case MODE_DRAW:
+                    stroke.push({ x: event_x, y: event_y, color: couleur });
+                    if (isSymetrieEnabled) {
+                        stroke_sym.push({ x: canvas.width - event_x, y: event_y, color: couleur });
+                    }
+                    break;
+                case MODE_SELECT:
+                    stroke.push({ x: event_x, y: event_y, color: couleur });
+                    break;
+                case MODE_MOVE:
+                    arrayOfStrokes = arrayOfStrokes.filter(item => !selectedStrokes.includes(item));
+                    break;
+            }
+            mouse_drag_start_x = mouse_previous_x = event_x;
+            mouse_drag_start_y = mouse_previous_y = event_y;
+        }
+        function mouseUpHandler(e) {
+            buttonIsDown = false;
+            var canvas_rectangle = canvas.getBoundingClientRect();
+            var event_x = e.clientX - canvas_rectangle.left;
+            var event_y = e.clientY - canvas_rectangle.top;
+
+            switch (mode) {
+                case MODE_DRAW:
+                    if (stroke.length > 2) {
+                        arrayOfStrokes.push(stroke);
+                        if (isSymetrieEnabled) {
+                            arrayOfStrokes.push(stroke_sym);
+                        }
+                    }
+                    stroke = [];
+                    stroke_sym = [];
+                    break;
+                    stroke = [];
+                    stroke_sym = [];
+                    break;
+                case MODE_SELECT:
+                    selectedStrokes = [];
+                    var rectangle = drawRectangle(stroke);
+                    if (rectangle != undefined) {
+                        for (var i = 0; i < arrayOfStrokes.length; i++) {
+                            var strokeInsideRectangle = true;
+                            var currentStroke = arrayOfStrokes[i];
+                            for (var j = 0; j < currentStroke.length; j++) {
+                                var currentPoint = currentStroke[j];
+                                if (!(currentPoint.x > rectangle.left && currentPoint.x < rectangle.right && currentPoint.y > rectangle.bottom && currentPoint.y < rectangle.top)) {
+                                    strokeInsideRectangle = false;
+                                    break;
+                                }
+                            }
+                            if (strokeInsideRectangle) {
+                                selectedStrokes.push(currentStroke);
+                            }
+                        }
+                    }
+                    break;
+                case MODE_MOVE:
+                    arrayOfStrokes.push(...selectedStrokes);
+                    break;
+            }
+            mouse_previous_x = event_x;
+            mouse_previous_y = event_y;
+        }
+        function mouseMoveHandler(e) {
+            var canvas_rectangle = canvas.getBoundingClientRect();
+            var event_x = e.clientX - canvas_rectangle.left;
+            var event_y = e.clientY - canvas_rectangle.top;
+            switch (mode) {
+                case MODE_DRAW:
+                    if (isSymetrieEnabled) {
+                        current_sym_point = { x: canvas.width - event_x, y: event_y, color: couleur };
+                    }
+                    if (buttonIsDown) {
+                        stroke.push({ x: event_x, y: event_y, color: couleur });
+                        if (isSymetrieEnabled) {
+                            stroke_sym.push({ x: canvas.width - event_x, y: event_y, color: couleur });
+                        }
+                    }
+                    break;
+                case MODE_SELECT:
+                    if (buttonIsDown) {
+                        stroke.push({ x: event_x, y: event_y, color: couleur });
+                    }
+
+                    break;
+                case MODE_MOVE:
+                    if (buttonIsDown) {
+                        moveSelection();
+                    }
+                    break;
+            }
+
+            redraw();
+            mouse_previous_x = event_x;
+            mouse_previous_y = event_y;
+        }
+
+        canvas.addEventListener('mousedown', mouseDownHandler);
+        canvas.addEventListener('mouseup', mouseUpHandler);
+        canvas.addEventListener('mousemove', mouseMoveHandler);
+
+        /**
+         * Moves all selected strokes by the distance the mouse has moved since the last drag event.
+         * Iterates through each point in each selected stroke and updates its x and y coordinates
+         * based on the difference between the current and previous mouse positions.
+         * After moving, updates the drag start position to the current mouse position.
+         */
+        function moveSelection() {
+            for (var i = 0; i < selectedStrokes.length; i++) {
+                var currentStroke = selectedStrokes[i];
+                for (var j = 0; j < currentStroke.length; j++) {
+                    currentStroke[j].x += mouse_previous_x - mouse_drag_start_x;
+                    currentStroke[j].y += mouse_previous_y - mouse_drag_start_y;
+                }
+            }
+            mouse_drag_start_x = mouse_previous_x;
+            mouse_drag_start_y = mouse_previous_y;
+        }
+
+        /**
+         * Draws a stroke on the canvas.
+         * @param {Array} s - An array of points representing the stroke. Each point is an object with 'x' and 'y' properties.
+         * The function begins a new path and connects each point in the stroke sequentially using line segments.
+         * The stroke is rendered using the current stroke style of the canvas context.
+         */
+        function drawStroke(s) {
+            canvas_context.beginPath();
+            for (var i = 0; i < s.length; ++i) {
+                var x = s[i].x;
+                var y = s[i].y;
+                if (i === 0) {
+                    canvas_context.moveTo(x, y);
+                }
+                else {
+                    canvas_context.lineTo(x, y);
+                }
+            }
+            canvas_context.stroke();
+        }
+
+        function drawCircle(x, y) {
+            canvas_context.beginPath();
+            canvas_context.arc(x, y, 15, 0, 2 * Math.PI);
+            canvas_context.stroke();
+        }
+
+        function drawRectangle(s) {
+            if (s.length < 2) { // gestion d'erreur, minimum 2 points pour faire un rectangle
+
+                return;
+            }
+            var left = Math.min(s[0].x, s[s.length - 1].x);
+            var right = Math.max(s[0].x, s[s.length - 1].x);
+            var bottom = Math.min(s[0].y, s[s.length - 1].y);
+            var top = Math.max(s[0].y, s[s.length - 1].y);
+            var width = right - left;
+            var height = top - bottom;
+            canvas_context.strokeRect(left, bottom, width, height);
+            return { left: left, right: right, bottom: bottom, top: top };
+        }
+
+        /**
+         * Highlights all currently selected strokes on the canvas.
+         * - Draws each selected stroke twice:
+         *   1. First pass: draws with a thick, semi-transparent yellow line to visually highlight the selection.
+         *   2. Second pass: draws over the highlight with a standard black line for clarity.
+         * This ensures selected strokes are both visually distinct and clearly visible.
+         */
+        function highlightSelectedStrokes() {
+            canvas_context.strokeStyle = "#F0EE00";
+            canvas_context.lineWidth = 10;
+            canvas_context.globalAlpha = 0.5;
+            for (var i = 0; i < selectedStrokes.length; i++) {
+                drawStroke(selectedStrokes[i]);
+            }
+            canvas_context.lineWidth = 1;
+            canvas_context.globalAlpha = 1;
+            for (var i = 0; i < selectedStrokes.length; i++) {
+                canvas_context.strokeStyle = selectedStrokes[i][0].color; //tous les points d'un même trait ont la même couleur, donc on peut prendre la couleur du premier point
+                drawStroke(selectedStrokes[i]);
+            }
+        }
+
+        /**
+         * Redraws the entire canvas based on the current application state.
+         * - Clears the canvas.
+         * - Draws all strokes in `arrayOfStrokes` in black.
+         * - Depending on the current mode:
+         *   - MODE_DRAW: If the mouse button is down, draws the current stroke in red and its symmetry (if enabled). If symmetry is enabled, draws a green circle at the current symmetry point.
+         *   - MODE_SELECT: If the mouse button is down, draws the selection rectangle in orange.
+         * - Highlights selected strokes with a yellow overlay.
+         */
+        var redraw = function () {
+            canvas_context.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < arrayOfStrokes.length; ++i) {
+                canvas_context.strokeStyle = arrayOfStrokes[i][0].color; //tous les points d'un même trait ont la même couleur, donc on peut prendre la couleur du premier point
+                drawStroke(arrayOfStrokes[i]);
+            }
+            switch (mode) {
+                case MODE_DRAW:
+                    if (buttonIsDown) {
+                        canvas_context.strokeStyle = "#ff0000";
+                        drawStroke(stroke);
+                        if (isSymetrieEnabled) {
+                            drawStroke(stroke_sym);
+                            drawCircle(current_sym_point.x, current_sym_point.y) //choix personnel: change la couleur du cercle lorsqu'on dessine activement. Pour le fonctionnement original, il suffit d'enlever cette ligne et changer le "else if(isSymetrieEnabled)" ci-bas à un "if(isSymetrieEnabled)"
+                        }
+                    }
+                    else if (isSymetrieEnabled) {
+                        canvas_context.strokeStyle = "#84F000";
+                        drawCircle(current_sym_point.x, current_sym_point.y);
+                    }
+                    break;
+                case MODE_SELECT:
+                    if (buttonIsDown) {
+                        canvas_context.strokeStyle = "#F5B027";
+                        drawRectangle(stroke);
+                    }
+                    break;
+            }
+            highlightSelectedStrokes();
+        }
+
+        redraw();
+
+        var setMode = function (m) {
+            mode = m;
+            redraw();
+        }
+
+        var setColor = function (o) {
+            couleur = o;
+            redraw();
+        }
+
+        var changeState = function (checkbox) {
+            isSymetrieEnabled = checkbox.checked;
+            redraw();
+        }
+
+        function clearButtonHandler() {
+            arrayOfStrokes = [];
+            selectedStrokes = [];
+            redraw();
+        }
+
+    </script>
+
+</body>
+</html>
