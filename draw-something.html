@@ -41,27 +41,28 @@
     <label><input type='radio' name="radio_mode" onclick='setMode(MODE_SELECT);'>Rectangle Select</label>
     <label><input type='radio' name="radio_mode" onclick='setMode(MODE_MOVE);'>Move Selection</label>
     <button onclick="clearButtonHandler()">Delete All</button>
+    <button onclick="saveImage()">Save image</button>
     <br />
-    <label><input type='checkbox' name="symetrie_box" onchange='changeState(this);'>Symétrie</label>
+    <label><input type='checkbox' name="symetrie_box" onchange='changeState(this);'>Symmetry</label>
     <br />
-    <label>Couleur de trait: </label>
+    <label>Draw colour: </label>
     <br />
-    
+
     <div>
         <div class='box black'></div>
-         <label><input type='radio' name="color_mode" onclick='setColor(NOIR);' checked>Noir</label>
+        <label><input type='radio' name="color_mode" onclick='setColor(NOIR);' checked>Black</label>
     </div>
     <br />
-    
+
     <div>
-    <div class='box magnifique'></div>
-    <label><input type='radio' name="color_mode" onclick='setColor(MAGNIFIQUE);'>Magnifique</label>
+        <div class='box magnifique'></div>
+        <label><input type='radio' name="color_mode" onclick='setColor(MAGNIFIQUE);'>Magnifique</label>
     </div>
     <br />
-   
+
     <div>
         <div class='box blue'></div>
-        <label><input type='radio' name="color_mode" onclick='setColor(BLEU);'>Bleu</label>
+        <label><input type='radio' name="color_mode" onclick='setColor(BLEU);'>Blue</label>
     </div>
 
     <script language="JavaScript">
@@ -338,6 +339,16 @@
             arrayOfStrokes = [];
             selectedStrokes = [];
             redraw();
+        }
+
+        function saveImage() {
+            var dataURL = canvas.toDataURL("image/png");
+            var link = document.createElement('a');
+            link.href = dataURL;
+            link.download = 'canvas_image.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
     </script>
