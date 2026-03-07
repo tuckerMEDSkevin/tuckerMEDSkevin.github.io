@@ -3,9 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- ================================================
+       OPEN GRAPH TAGS — fill these in per song page
+       ================================================ -->
+  <meta property="og:title"       content="SONG TITLE — ARTIST NAME">
+  <meta property="og:description" content="Track N from ALBUM NAME">
+  <meta property="og:type"        content="music.song">
+  <meta property="og:url"         content="https://YOUR-USERNAME.github.io/songs/SONG-FILE.html">
+  <meta property="og:image"       content="https://YOUR-USERNAME.github.io/albums/ALBUM-COVER.jpg">
+  <meta property="og:image:alt"   content="ALBUM NAME album cover">
+  <meta property="og:site_name"   content="YOUR SITE NAME">
+
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="SONG TITLE — ARTIST NAME">
+  <meta name="twitter:description" content="Track N from ALBUM NAME">
+  <meta name="twitter:image"       content="https://YOUR-USERNAME.github.io/albums/ALBUM-COVER.jpg">
+  <!-- ================================================ -->
+
   <title>Loading…</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --green-deep:  #004d26;
@@ -24,7 +41,7 @@
       min-height: 100vh;
       background-color: var(--bg);
       color: var(--cream);
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -124,7 +141,7 @@
 
     /* metadata */
     .label {
-      font-family: 'Cinzel', serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: .62rem;
       letter-spacing: .22em;
       color: var(--gold);
@@ -133,7 +150,7 @@
     }
 
     .song-title {
-      font-family: 'Cinzel', serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 1.85rem;
       font-weight: 600;
       color: var(--cream);
@@ -164,7 +181,7 @@
       background: linear-gradient(to right, transparent, rgba(0,154,68,0.5), transparent);
     }
 
-    /* player */
+    /* timeline */
     .timeline-wrapper {
       display: flex;
       align-items: center;
@@ -173,7 +190,7 @@
     }
 
     .time-label {
-      font-family: 'Cinzel', serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: .7rem;
       color: var(--gold-dim);
       letter-spacing: .08em;
@@ -204,6 +221,7 @@
     input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.3); }
     input[type="range"].volume-slider { width: 80px; flex: none; }
 
+    /* controls row */
     .controls-row {
       display: flex;
       align-items: center;
@@ -216,6 +234,7 @@
       gap: .6rem;
     }
 
+    /* skip buttons */
     .btn-skip {
       width: 36px; height: 36px;
       border-radius: 50%;
@@ -234,6 +253,7 @@
     .btn-skip svg { fill: var(--cream-dim); transition: fill .2s; }
     .btn-skip:hover svg { fill: var(--gold); }
 
+    /* play/pause */
     .btn-play {
       width: 52px; height: 52px;
       border-radius: 50%;
@@ -253,6 +273,36 @@
     .btn-play svg { fill: var(--cream); transition: fill .2s; }
     .btn-play:hover svg { fill: var(--gold); }
 
+    /* loop-one button */
+    .btn-loop {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,154,68,0.4);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, border-color .2s;
+      position: relative;
+    }
+    .btn-loop svg { fill: var(--cream-dim); transition: fill .2s; }
+    .btn-loop:hover { background: rgba(0,154,68,0.15); border-color: var(--gold-dim); }
+    .btn-loop:hover svg { fill: var(--gold); }
+
+    /* active state — lit up in gold */
+    .btn-loop.active {
+      border-color: var(--gold);
+      background: rgba(200,168,75,0.1);
+    }
+    .btn-loop.active svg { fill: var(--gold); }
+
+    .right-controls {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
     .vol-row { display: flex; align-items: center; gap: .5rem; }
     .vol-icon { color: var(--gold-dim); font-size: .85rem; }
 
@@ -271,16 +321,6 @@
         var(--green-mid)   var(--pct, 0%),
         var(--green-mid)   100%
       );
-    }
-
-    /* error state */
-    .error-msg {
-      text-align: center;
-      color: var(--gold-dim);
-      font-family: 'Cinzel', serif;
-      font-size: .8rem;
-      letter-spacing: .1em;
-      padding: 2rem 0;
     }
   </style>
 </head>
@@ -328,27 +368,54 @@
       </div>
 
       <div class="controls-row">
+
+        <!-- Left: playback controls -->
         <div class="playback-controls">
           <button class="btn-skip" id="prevBtn" aria-label="Previous track">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
               <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/>
             </svg>
           </button>
+
           <button class="btn-play" id="playBtn" aria-label="Play">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
               <path id="playIcon" d="M8 5v14l11-7z"/>
             </svg>
           </button>
+
           <button class="btn-skip" id="nextBtn" aria-label="Next track">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
               <path d="M6 18l8.5-6L6 6v12zm2.5-6 5.5 4V8l-5.5 4zM16 6h2v12h-2z"/>
             </svg>
           </button>
         </div>
-        <div class="vol-row">
-          <span class="vol-icon">♪</span>
-          <input type="range" class="volume-slider" id="volBar" min="0" max="1" step="0.01" value="1">
+
+        <!-- Right: loop + volume -->
+        <div class="right-controls">
+
+          <!-- Repeat-one button (loop icon with "1" inside) -->
+          <button class="btn-loop" id="loopBtn" aria-label="Repeat one" title="Repeat one">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+              <!-- repeat arrows -->
+              <path d="M7 7h10v2.5l3.5-3.5L17 2.5V5H7C5.35 5 4 6.35 4 8v3h2V8c0-.55.45-1 1-1z"/>
+              <path d="M17 17H7v-2.5L3.5 18 7 21.5V19h10c1.65 0 3-1.35 3-3v-3h-2v3c0 .55-.45 1-1 1z"/>
+              <!-- "1" numeral centred in the icon -->
+              <text x="12" y="14.5"
+                    text-anchor="middle"
+                    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+                    font-size="6"
+                    font-weight="bold"
+                    fill="currentColor"
+                    style="fill:inherit">1</text>
+            </svg>
+          </button>
+
+          <div class="vol-row">
+            <span class="vol-icon">♪</span>
+            <input type="range" class="volume-slider" id="volBar" min="0" max="1" step="0.01" value="1">
+          </div>
         </div>
+
       </div>
     </div>
 
@@ -370,17 +437,25 @@
     const durEl    = document.getElementById('duration');
     const prevBtn  = document.getElementById('prevBtn');
     const nextBtn  = document.getElementById('nextBtn');
+    const loopBtn  = document.getElementById('loopBtn');
 
     const PLAY_PATH  = "M8 5v14l11-7z";
     const PAUSE_PATH = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
 
-    // Derive this page's filename from the URL (e.g. "song-1.html")
+    let loopOne = false;
+
+    loopBtn.addEventListener('click', () => {
+      loopOne = !loopOne;
+      loopBtn.classList.toggle('active', loopOne);
+      loopBtn.setAttribute('aria-pressed', loopOne);
+    });
+
+    // Derive this page's filename from the URL
     const thisFile = window.location.pathname.split('/').pop() || 'index.html';
 
-    let albumTracks = []; // sorted tracks for this album
+    let albumTracks = [];
     let thisSong    = null;
 
-    // Populate the page from a song entry
     function applyEntry(song) {
       document.title = `${song.title} — ${song.artist}`;
       document.getElementById('songTitle').textContent  = song.title;
@@ -388,14 +463,12 @@
       document.getElementById('metaAlbum').textContent  = song.album;
       document.getElementById('metaTrack').textContent  = song.track;
 
-      // Set audio source
       audio.src = song.audio;
       audio.load();
 
-      // Set cover art
       const img = document.getElementById('coverArt');
       if (song.cover) {
-        img.src = song.cover;
+        img.src     = song.cover;
         img.onload  = () => {
           img.classList.add('loaded');
           document.getElementById('coverPlaceholder').style.display = 'none';
@@ -406,43 +479,35 @@
       }
     }
 
-    // Fetch songs.json, find this page, populate everything
     fetch('songs.json')
       .then(r => r.json())
       .then(songs => {
         thisSong = songs.find(s => s.file === thisFile);
-
         if (!thisSong) {
           document.getElementById('songTitle').textContent = 'Song not found in songs.json';
           return;
         }
-
         applyEntry(thisSong);
-
-        // Build sorted album tracklist for navigation
         albumTracks = songs
           .filter(s => s.album === thisSong.album)
           .sort((a, b) => a.track - b.track);
       })
-      .catch(err => {
-        console.error('Could not load songs.json:', err);
+      .catch(() => {
         document.getElementById('songTitle').textContent = 'Could not load songs.json';
       });
 
-    // Navigation
     function navigateTo(direction) {
       if (!thisSong || albumTracks.length === 0) return;
 
       if (albumTracks.length === 1) {
-        // Only track in album — restart
         audio.currentTime = 0;
         audio.play();
         playIcon.setAttribute('d', PAUSE_PATH);
         return;
       }
 
-      const idx = albumTracks.findIndex(s => s.file === thisFile);
-      let next  = idx + direction;
+      const idx  = albumTracks.findIndex(s => s.file === thisFile);
+      let   next = idx + direction;
       if (next >= albumTracks.length) next = 0;
       if (next < 0) next = albumTracks.length - 1;
 
@@ -452,7 +517,6 @@
     prevBtn.addEventListener('click', () => navigateTo(-1));
     nextBtn.addEventListener('click', () => navigateTo(+1));
 
-    // Player controls
     function fmt(s) {
       const m   = Math.floor(s / 60);
       const sec = Math.floor(s % 60).toString().padStart(2, '0');
@@ -481,7 +545,14 @@
     });
 
     audio.addEventListener('ended', () => {
-      navigateTo(+1);
+      if (loopOne) {
+        // Replay this song
+        audio.currentTime = 0;
+        audio.play();
+        playIcon.setAttribute('d', PAUSE_PATH);
+      } else {
+        navigateTo(+1);
+      }
     });
 
     seekBar.addEventListener('input', () => {
