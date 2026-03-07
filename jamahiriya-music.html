@@ -226,11 +226,19 @@
         // Sort albums alphabetically
         const albums = Object.keys(albumMap).sort((a, b) => a.localeCompare(b));
 
+        // Slug helper — mirrors the Python slugify
+        function slugify(text) {
+          return text.toLowerCase().trim()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/[\s_]+/g, '-');
+        }
+
         albums.forEach((album, i) => {
           const tracks = albumMap[album].sort((a, b) => a.track - b.track);
 
           const group = document.createElement('div');
           group.className = 'album-group';
+          group.id = slugify(album);
           group.style.animationDelay = `${i * 0.07}s`;
 
           const heading = document.createElement('div');
