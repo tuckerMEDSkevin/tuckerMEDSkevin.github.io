@@ -451,7 +451,9 @@
     });
 
     // Derive this page's filename from the URL
-    const thisFile = window.location.pathname.split('/').pop() || 'index.html';
+    // Normalise: ensure it ends in .html in case the URL omits the extension
+    let thisFile = window.location.pathname.split('/').pop() || 'index.html';
+    if (!thisFile.endsWith('.html')) thisFile = thisFile + '.html';
 
     let albumTracks = [];
     let thisSong    = null;

@@ -1,6 +1,6 @@
 [
   {
-    "file": "song-1.html",
+    "file": "fragrance-of-my-land.html",
     "title": "Fragrance Of My Land",
     "artist": "Renato",
     "album": "Once For Freedom's Sake",
@@ -9,12 +9,12 @@
     "cover": "../albums/once-for-freedoms-sake.png"
   },
   {
-    "file": "song-2.html",
-    "title": "Flashback On Sebha",
-    "artist": "Marisa",
+    "file": "once-for-freedoms-sake.html",
+    "title": "Once For Freedom's Sake",
+    "artist": "Renato",
     "album": "Once For Freedom's Sake",
-    "track": 12,
-    "audio": "../audio/flashback-on-sebha.mp3",
+    "track": 9,
+    "audio": "../audio/once-for-freedoms-sake.mp3",
     "cover": "../albums/once-for-freedoms-sake.png"
   }
 ]
