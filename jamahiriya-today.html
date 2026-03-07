@@ -4,24 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- ================================================
-       OPEN GRAPH TAGS — fill these in per song page
-       ================================================ -->
-  <meta property="og:title"       content="Fragrance Of My Land — Renato">
-  <meta property="og:description" content="Track 6 from Once For Freedom's Sake">
+  <meta property="og:title"       content="Jamahiriya Song of the Day">
+  <meta property="og:description" content="Fragrance Of My Land by Renato">
   <meta property="og:type"        content="music.song">
-  <meta property="og:url"         content="https://tuckermedskevin.github.io/songs/SONG-FILE.html">
-  <meta property="og:image"       content="https://tuckermedskevin.github.io/albums/ALBUM-COVER.jpg">
-  <meta property="og:image:alt"   content="Once For Freedom's Sake album cover">
-  <meta property="og:site_name"   content="Renato">
+  <meta property="og:url"         content="https://tuckermedskevin.github.io/jamahiriya-today.html">
+  <meta property="og:image"       content="https://tuckermedskevin.github.io/once-for-freedoms-sake.png">
+  <meta property="og:image:alt"   content="Jamahiriya Song of the Day">
+  <meta property="og:site_name"   content="Jamahiriya Music">
 
   <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:title"       content="Fragrance Of My Land — Renato">
-  <meta name="twitter:description" content="Track 6 from Once For Freedom's Sake">
-  <meta name="twitter:image"       content="https://tuckermedskevin.github.io/albums/ALBUM-COVER.jpg">
-  <!-- ================================================ -->
+  <meta name="twitter:title"       content="Jamahiriya Song of the Day">
+  <meta name="twitter:description" content="Fragrance Of My Land by Renato">
+  <meta name="twitter:image"       content="https://tuckermedskevin.github.io/once-for-freedoms-sake.png">
 
-  <title>Fragrance Of My Land — Renato</title>
+  <title>Jamahiriya Song of the Day</title>
 
   <style>
     :root {
@@ -101,6 +97,18 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* — page title — */
+    .page-title {
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    /* — ornament — */
     .ornament {
       display: flex;
       align-items: center;
@@ -122,24 +130,7 @@
       flex-shrink: 0;
     }
 
-    /* — back button — */
-    .btn-back {
-      display: inline-flex;
-      align-items: center;
-      gap: .45rem;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: .68rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      text-decoration: none;
-      margin-bottom: 1.6rem;
-      transition: color .2s;
-    }
-    .btn-back:hover { color: var(--gold); }
-    .btn-back svg { fill: currentColor; flex-shrink: 0; }
-
-    /* cover art */
+    /* — cover art — */
     .cover-wrap {
       width: 100%;
       aspect-ratio: 1 / 1;
@@ -168,9 +159,8 @@
       opacity: .4;
     }
 
-    /* metadata */
+    /* — metadata — */
     .label {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: .62rem;
       letter-spacing: .22em;
       color: var(--gold);
@@ -179,7 +169,6 @@
     }
 
     .song-title {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 1.85rem;
       font-weight: 600;
       color: var(--cream);
@@ -203,14 +192,14 @@
       letter-spacing: .01em;
     }
 
-    /* divider */
+    /* — divider — */
     .divider {
       margin: 1.8rem 0;
       height: 1px;
       background: linear-gradient(to right, transparent, rgba(0,154,68,0.5), transparent);
     }
 
-    /* timeline */
+    /* — timeline — */
     .timeline-wrapper {
       display: flex;
       align-items: center;
@@ -219,7 +208,6 @@
     }
 
     .time-label {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: .7rem;
       color: var(--gold-dim);
       letter-spacing: .08em;
@@ -256,39 +244,14 @@
       input[type="range"].volume-slider { width: 70px; }
     }
 
-    /* controls row */
+    /* — controls row — */
     .controls-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .playback-controls {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-    }
-
-    /* skip buttons */
-    .btn-skip {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: 1px solid rgba(0,154,68,0.4);
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background .2s, border-color .2s;
-    }
-    .btn-skip:hover {
-      background: rgba(0,154,68,0.15);
-      border-color: var(--gold-dim);
-    }
-    .btn-skip svg { fill: var(--cream-dim); transition: fill .2s; }
-    .btn-skip:hover svg { fill: var(--gold); }
-
-    /* play/pause */
+    /* — play/pause button — */
     .btn-play {
       width: 52px; height: 52px;
       border-radius: 50%;
@@ -308,7 +271,7 @@
     .btn-play svg { fill: var(--cream); transition: fill .2s; }
     .btn-play:hover svg { fill: var(--gold); }
 
-    /* loop-one button */
+    /* — loop button — */
     .btn-loop {
       width: 32px; height: 32px;
       border-radius: 50%;
@@ -319,28 +282,21 @@
       align-items: center;
       justify-content: center;
       transition: background .2s, border-color .2s;
-      position: relative;
     }
     .btn-loop svg { fill: var(--cream-dim); transition: fill .2s; }
     .btn-loop:hover { background: rgba(0,154,68,0.15); border-color: var(--gold-dim); }
     .btn-loop:hover svg { fill: var(--gold); }
-
-    /* active state — lit up in gold */
     .btn-loop.active {
       border-color: var(--gold);
       background: rgba(200,168,75,0.1);
     }
     .btn-loop.active svg { fill: var(--gold); }
 
-    .right-controls {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-    }
-
+    .right-controls { display: flex; align-items: center; gap: .75rem; }
     .vol-row { display: flex; align-items: center; gap: .5rem; }
     .vol-icon { color: var(--gold-dim); font-size: .85rem; }
 
+    /* — footer — */
     .footer-ornament {
       margin-top: 2rem;
       display: flex;
@@ -362,46 +318,46 @@
 <body>
   <div class="card">
 
+    <div class="page-title">Jamahiriya Song of the Day</div>
+
     <div class="ornament">
       <div class="ornament-line"></div>
-      &#9770;
+      <div class="ornament-diamond">&#9770;</div>
       <div class="ornament-line right"></div>
     </div>
 
-    <a class="btn-back" id="backBtn" href="../jamahiriya-music.html">
-      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
-        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-      </svg>
-      All Songs
-    </a>
-
     <div class="cover-wrap">
       <div class="cover-placeholder" id="coverPlaceholder">♪</div>
-      <img id="coverArt" alt="Album cover">
+      <!-- ✏️ Updated by update_sotd.py — do not edit manually -->
+      <img id="coverArt" src="albums/once-for-freedoms-sake.png" alt="Album cover">
     </div>
 
     <div class="label">Now Playing</div>
-    <div class="song-title" id="songTitle">—</div>
+    <!-- ✏️ Updated by update_sotd.py — do not edit manually -->
+    <div class="song-title" id="songTitle">Fragrance Of My Land</div>
 
     <div class="detail-row">
       <div class="detail-block">
         <div class="label">Artist</div>
-        <div class="detail-value" id="metaArtist">—</div>
+        <div class="detail-value" id="metaArtist">Renato</div>
       </div>
       <div class="detail-block">
         <div class="label">Album</div>
-        <div class="detail-value" id="metaAlbum">—</div>
+        <div class="detail-value" id="metaAlbum">Once For Freedom's Sake</div>
       </div>
       <div class="detail-block track">
         <div class="label">Track</div>
-        <div class="detail-value" id="metaTrack">—</div>
+        <div class="detail-value" id="metaTrack">6</div>
       </div>
     </div>
 
     <div class="divider"></div>
 
     <div class="player">
-      <audio id="audio" preload="metadata"></audio>
+      <!-- ✏️ Updated by update_sotd.py — do not edit manually -->
+      <audio id="audio" preload="metadata">
+        <source id="audioSource" src="audio/fragrance-of-my-land.mp3" type="audio/mpeg">
+      </audio>
 
       <div class="timeline-wrapper">
         <span class="time-label" id="currentTime">0:00</span>
@@ -411,37 +367,17 @@
 
       <div class="controls-row">
 
-        <!-- Left: playback controls -->
-        <div class="playback-controls">
-          <button class="btn-skip" id="prevBtn" aria-label="Previous track">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/>
-            </svg>
-          </button>
+        <button class="btn-play" id="playBtn" aria-label="Play">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+            <path id="playIcon" d="M8 5v14l11-7z"/>
+          </svg>
+        </button>
 
-          <button class="btn-play" id="playBtn" aria-label="Play">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-              <path id="playIcon" d="M8 5v14l11-7z"/>
-            </svg>
-          </button>
-
-          <button class="btn-skip" id="nextBtn" aria-label="Next track">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M6 18l8.5-6L6 6v12zm2.5-6 5.5 4V8l-5.5 4zM16 6h2v12h-2z"/>
-            </svg>
-          </button>
-        </div>
-
-        <!-- Right: loop + volume -->
         <div class="right-controls">
-
-          <!-- Repeat-one button (loop icon with "1" inside) -->
           <button class="btn-loop" id="loopBtn" aria-label="Repeat one" title="Repeat one">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-              <!-- repeat arrows -->
               <path d="M7 7h10v2.5l3.5-3.5L17 2.5V5H7C5.35 5 4 6.35 4 8v3h2V8c0-.55.45-1 1-1z"/>
               <path d="M17 17H7v-2.5L3.5 18 7 21.5V19h10c1.65 0 3-1.35 3-3v-3h-2v3c0 .55-.45 1-1 1z"/>
-              <!-- "1" numeral centred in the icon -->
               <text x="12" y="14.5"
                     text-anchor="middle"
                     font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
@@ -463,7 +399,7 @@
 
     <div class="footer-ornament">
       <div class="ornament-line"></div>
-      &#9770;
+      <div class="ornament-diamond">&#9770;</div>
       <div class="ornament-line right"></div>
     </div>
 
@@ -477,8 +413,6 @@
     const volBar   = document.getElementById('volBar');
     const curEl    = document.getElementById('currentTime');
     const durEl    = document.getElementById('duration');
-    const prevBtn  = document.getElementById('prevBtn');
-    const nextBtn  = document.getElementById('nextBtn');
     const loopBtn  = document.getElementById('loopBtn');
 
     const PLAY_PATH  = "M8 5v14l11-7z";
@@ -492,82 +426,15 @@
       loopBtn.setAttribute('aria-pressed', loopOne);
     });
 
-    // Derive this page's filename from the URL
-    // Normalise: ensure it ends in .html in case the URL omits the extension
-    let thisFile = window.location.pathname.split('/').pop() || 'index.html';
-    if (!thisFile.endsWith('.html')) thisFile = thisFile + '.html';
-
-    let albumTracks = [];
-    let thisSong    = null;
-
-    function slugify(text) {
-      return text.toLowerCase().trim()
-        .replace(/[^\w\s-]/g, '')
-        .replace(/[\s_]+/g, '-');
+    // Cover art
+    const coverImg = document.getElementById('coverArt');
+    if (coverImg.src) {
+      coverImg.onload  = () => {
+        coverImg.classList.add('loaded');
+        document.getElementById('coverPlaceholder').style.display = 'none';
+      };
+      coverImg.onerror = () => { coverImg.style.display = 'none'; };
     }
-
-    function applyEntry(song) {
-      document.title = `${song.title} — ${song.artist}`;
-      document.getElementById('songTitle').textContent  = song.title;
-      document.getElementById('metaArtist').textContent = song.artist;
-      document.getElementById('metaAlbum').textContent  = song.album;
-      document.getElementById('metaTrack').textContent  = song.track;
-
-      audio.src = song.audio;
-      audio.load();
-
-      document.getElementById('backBtn').href = `../jamahiriya-music.html#${slugify(song.album)}`;
-
-      const img = document.getElementById('coverArt');
-      if (song.cover) {
-        img.src     = song.cover;
-        img.onload  = () => {
-          img.classList.add('loaded');
-          document.getElementById('coverPlaceholder').style.display = 'none';
-        };
-        img.onerror = () => { img.style.display = 'none'; };
-      } else {
-        img.style.display = 'none';
-      }
-    }
-
-    fetch('songs.json')
-      .then(r => r.json())
-      .then(songs => {
-        thisSong = songs.find(s => s.file === thisFile);
-        if (!thisSong) {
-          document.getElementById('songTitle').textContent = 'Song not found in songs.json';
-          return;
-        }
-        applyEntry(thisSong);
-        albumTracks = songs
-          .filter(s => s.album === thisSong.album)
-          .sort((a, b) => a.track - b.track);
-      })
-      .catch(() => {
-        document.getElementById('songTitle').textContent = 'Could not load songs.json';
-      });
-
-    function navigateTo(direction) {
-      if (!thisSong || albumTracks.length === 0) return;
-
-      if (albumTracks.length === 1) {
-        audio.currentTime = 0;
-        audio.play();
-        playIcon.setAttribute('d', PAUSE_PATH);
-        return;
-      }
-
-      const idx  = albumTracks.findIndex(s => s.file === thisFile);
-      let   next = idx + direction;
-      if (next >= albumTracks.length) next = 0;
-      if (next < 0) next = albumTracks.length - 1;
-
-      window.location.href = albumTracks[next].file;
-    }
-
-    prevBtn.addEventListener('click', () => navigateTo(-1));
-    nextBtn.addEventListener('click', () => navigateTo(+1));
 
     function fmt(s) {
       const m   = Math.floor(s / 60);
@@ -590,7 +457,7 @@
       audio.play().then(() => {
         playIcon.setAttribute('d', PAUSE_PATH);
       }).catch(() => {
-        // Autoplay blocked by browser — user must press play manually
+        // Autoplay blocked — user must press play manually
       });
     });
 
@@ -603,12 +470,16 @@
 
     audio.addEventListener('ended', () => {
       if (loopOne) {
-        // Replay this song
         audio.currentTime = 0;
         audio.play();
         playIcon.setAttribute('d', PAUSE_PATH);
       } else {
-        navigateTo(+1);
+        // Stop — reset to beginning but don't play
+        audio.currentTime = 0;
+        playIcon.setAttribute('d', PLAY_PATH);
+        seekBar.value = 0;
+        seekBar.style.setProperty('--pct', '0%');
+        curEl.textContent = '0:00';
       }
     });
 
