@@ -38,6 +38,8 @@
       background-color: var(--bg);
       color: var(--cream);
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     body::before {
@@ -85,12 +87,13 @@
 
     .site-title {
       font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
-      font-size: clamp(1.5rem, 6vw, 2.2rem);
+      font-size: clamp(1.2rem, 6vw, 2.2rem);
       font-weight: 700;
-      letter-spacing: .1em;
+      letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: .45rem;
+      word-break: break-word;
     }
 
     .site-tagline {
@@ -131,21 +134,84 @@
       flex-shrink: 0;
     }
 
+    /* — corner marks (letterhead frame) — */
+    .corner-marks {
+      position: fixed;
+      inset: 1rem;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .corner-marks span {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-color: rgba(200,168,75,0.35);
+      border-style: solid;
+    }
+    .corner-marks span:nth-child(1) { top: 0; left: 0;  border-width: 1px 0 0 1px; }
+    .corner-marks span:nth-child(2) { top: 0; right: 0; border-width: 1px 1px 0 0; }
+    .corner-marks span:nth-child(3) { bottom: 0; left: 0;  border-width: 0 0 1px 1px; }
+    .corner-marks span:nth-child(4) { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
     /* — album groups — */
     .album-group {
-      margin-bottom: 2.8rem;
+      margin-bottom: 0;
       animation: fadeUp .8s ease both;
     }
 
+    /* — album heading with thumbnail — */
+    .album-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: .9rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid rgba(0,154,68,0.3);
+      border-left: 2px solid var(--gold-dim);
+      padding-left: .7rem;
+    }
+
+    .album-thumb {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      object-fit: cover;
+      border: 1px solid rgba(200,168,75,0.25);
+      background: var(--green-deep);
+      display: block;
+    }
+
     .album-title {
-      font-size: 1.05rem;
-      font-weight: 500;
-      letter-spacing: .08em;
+      font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+      font-size: clamp(.95rem, 3vw, 1.15rem);
+      font-weight: 600;
+      letter-spacing: .06em;
       text-transform: uppercase;
       color: var(--green-vivid);
-      margin-bottom: .9rem;
-      padding-bottom: .5rem;
-      border-bottom: 1px solid rgba(0,154,68,0.3);
+      flex: 1;
+      min-width: 0;
+      word-break: break-word;
+    }
+
+    /* — crescent divider between album groups — */
+    .album-divider {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin: 2rem 0;
+    }
+    .album-divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(0,154,68,0.3));
+    }
+    .album-divider-line.right {
+      background: linear-gradient(to left, transparent, rgba(0,154,68,0.3));
+    }
+    .album-divider-crescent {
+      color: var(--gold-dim);
+      font-size: .7rem;
+      flex-shrink: 0;
     }
 
     /* — song rows — */
@@ -167,7 +233,6 @@
     }
 
     @media (hover: none) {
-      /* Touch devices — always show arrow, slightly larger tap area */
       .song-arrow { opacity: 1 !important; }
       .song-row { padding-top: .75rem; padding-bottom: .75rem; }
     }
@@ -183,12 +248,12 @@
 
     .song-title {
       font-size: .95rem;
-      color: var(--cream-dim);
+      color: var(--cream);
       flex: 1;
       transition: color .15s;
     }
     .song-row:hover .song-title {
-      color: var(--cream);
+      color: var(--gold);
     }
 
     .song-arrow {
@@ -218,6 +283,9 @@
   </style>
 </head>
 <body>
+  <div class="corner-marks">
+    <span></span><span></span><span></span><span></span>
+  </div>
   <div class="page">
 
     <header>
@@ -271,15 +339,46 @@
         albums.forEach((album, i) => {
           const tracks = albumMap[album].sort((a, b) => a.track - b.track);
 
+          // Crescent divider between albums (not before the first)
+          if (i > 0) {
+            const div = document.createElement('div');
+            div.className = 'album-divider';
+            div.innerHTML = `
+              <div class="album-divider-line"></div>
+              <span class="album-divider-crescent">&#9770;</span>
+              <div class="album-divider-line right"></div>`;
+            content.appendChild(div);
+          }
+
           const group = document.createElement('div');
           group.className = 'album-group';
           group.id = slugify(album);
           group.style.animationDelay = `${i * 0.07}s`;
 
+          // Album heading with thumbnail
+          const albumHeader = document.createElement('div');
+          albumHeader.className = 'album-header';
+
+          // Cover thumbnail — cover path in json is ../albums/x.jpg relative to songs/
+          // From bands/ it becomes albums/x.jpg
+          const firstCover = tracks[0] && tracks[0].cover
+            ? tracks[0].cover.replace(/^\.\.\//, '')
+            : null;
+
+          if (firstCover) {
+            const thumb = document.createElement('img');
+            thumb.className  = 'album-thumb';
+            thumb.src        = firstCover;
+            thumb.alt        = album;
+            thumb.onerror    = () => { thumb.style.display = 'none'; };
+            albumHeader.appendChild(thumb);
+          }
+
           const heading = document.createElement('div');
           heading.className = 'album-title';
           heading.textContent = album;
-          group.appendChild(heading);
+          albumHeader.appendChild(heading);
+          group.appendChild(albumHeader);
 
           for (const song of tracks) {
             const link = document.createElement('a');
