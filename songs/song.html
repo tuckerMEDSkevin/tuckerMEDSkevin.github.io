@@ -3,21 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Song — Al-Hani</title>
+  <title>Loading…</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
   <style>
     :root {
-      --green-deep:    #004d26;
-      --green-mid:     #006b34;
-      --green-vivid:   #009A44;
-      --green-light:   #00c255;
-      --gold:          #c8a84b;
-      --gold-dim:      #8a6f2e;
-      --cream:         #f0ede6;
-      --cream-dim:     #b8b49a;
-      --bg:            #021a0d;
+      --green-deep:  #004d26;
+      --green-mid:   #006b34;
+      --green-vivid: #009A44;
+      --gold:        #c8a84b;
+      --gold-dim:    #8a6f2e;
+      --cream:       #f0ede6;
+      --cream-dim:   #b8b49a;
+      --bg:          #021a0d;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,7 +31,6 @@
       overflow: hidden;
     }
 
-    /* subtle radial glow from centre */
     body::before {
       content: '';
       position: fixed;
@@ -45,17 +42,14 @@
       z-index: 0;
     }
 
-    /* faint repeating diagonal lines texture */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
       background-image: repeating-linear-gradient(
         -45deg,
-        transparent,
-        transparent 14px,
-        rgba(0,154,68,0.03) 14px,
-        rgba(0,154,68,0.03) 15px
+        transparent, transparent 14px,
+        rgba(0,154,68,0.03) 14px, rgba(0,154,68,0.03) 15px
       );
       pointer-events: none;
       z-index: 0;
@@ -78,13 +72,11 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* — top ornament — */
     .ornament {
       display: flex;
       align-items: center;
       gap: .75rem;
       margin-bottom: 2rem;
-      animation: fadeUp .9s .1s ease both;
     }
     .ornament-line {
       flex: 1;
@@ -95,14 +87,13 @@
       background: linear-gradient(to left, transparent, var(--gold-dim));
     }
     .ornament-diamond {
-      width: 7px;
-      height: 7px;
+      width: 7px; height: 7px;
       background: var(--gold);
       transform: rotate(45deg);
       flex-shrink: 0;
     }
 
-    /* — cover art — */
+    /* cover art */
     .cover-wrap {
       width: 100%;
       aspect-ratio: 1 / 1;
@@ -111,18 +102,15 @@
       border: 1px solid rgba(0,154,68,0.3);
       background: var(--green-deep);
       position: relative;
-      animation: fadeUp .9s .12s ease both;
     }
     .cover-wrap img {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: cover;
       display: block;
       opacity: 0;
       transition: opacity .5s ease;
     }
     .cover-wrap img.loaded { opacity: 1; }
-
     .cover-placeholder {
       position: absolute;
       inset: 0;
@@ -134,9 +122,7 @@
       opacity: .4;
     }
 
-    /* — metadata — */
-    .meta { animation: fadeUp .9s .18s ease both; }
-
+    /* metadata */
     .label {
       font-family: 'Cinzel', serif;
       font-size: .62rem;
@@ -158,11 +144,11 @@
 
     .detail-row {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
       margin-bottom: .4rem;
     }
-
     .detail-block { flex: 1; }
+    .detail-block.track { flex: 0 0 auto; min-width: 3rem; }
 
     .detail-value {
       font-size: 1.1rem;
@@ -171,17 +157,14 @@
       letter-spacing: .01em;
     }
 
-    /* — divider — */
+    /* divider */
     .divider {
       margin: 1.8rem 0;
       height: 1px;
       background: linear-gradient(to right, transparent, rgba(0,154,68,0.5), transparent);
-      animation: fadeUp .9s .25s ease both;
     }
 
-    /* — player — */
-    .player { animation: fadeUp .9s .32s ease both; }
-
+    /* player */
     .timeline-wrapper {
       display: flex;
       align-items: center;
@@ -211,8 +194,7 @@
     }
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 12px;
-      height: 12px;
+      width: 12px; height: 12px;
       border-radius: 50%;
       background: var(--gold);
       border: none;
@@ -220,10 +202,7 @@
       transition: transform .15s;
     }
     input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.3); }
-    input[type="range"].volume-slider {
-      width: 80px;
-      flex: none;
-    }
+    input[type="range"].volume-slider { width: 80px; flex: none; }
 
     .controls-row {
       display: flex;
@@ -231,9 +210,32 @@
       justify-content: space-between;
     }
 
+    .playback-controls {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .btn-skip {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,154,68,0.4);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, border-color .2s;
+    }
+    .btn-skip:hover {
+      background: rgba(0,154,68,0.15);
+      border-color: var(--gold-dim);
+    }
+    .btn-skip svg { fill: var(--cream-dim); transition: fill .2s; }
+    .btn-skip:hover svg { fill: var(--gold); }
+
     .btn-play {
-      width: 52px;
-      height: 52px;
+      width: 52px; height: 52px;
       border-radius: 50%;
       border: 1.5px solid var(--green-vivid);
       background: transparent;
@@ -242,7 +244,6 @@
       align-items: center;
       justify-content: center;
       transition: background .2s, border-color .2s, box-shadow .2s;
-      position: relative;
     }
     .btn-play:hover {
       background: rgba(0,154,68,0.18);
@@ -252,23 +253,16 @@
     .btn-play svg { fill: var(--cream); transition: fill .2s; }
     .btn-play:hover svg { fill: var(--gold); }
 
-    .vol-row {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-    }
+    .vol-row { display: flex; align-items: center; gap: .5rem; }
     .vol-icon { color: var(--gold-dim); font-size: .85rem; }
 
-    /* — footer — */
     .footer-ornament {
       margin-top: 2rem;
       display: flex;
       align-items: center;
       gap: .75rem;
-      animation: fadeUp .9s .4s ease both;
     }
 
-    /* progress fill via JS inline style trick */
     #seekBar {
       background: linear-gradient(
         to right,
@@ -277,6 +271,16 @@
         var(--green-mid)   var(--pct, 0%),
         var(--green-mid)   100%
       );
+    }
+
+    /* error state */
+    .error-msg {
+      text-align: center;
+      color: var(--gold-dim);
+      font-family: 'Cinzel', serif;
+      font-size: .8rem;
+      letter-spacing: .1em;
+      padding: 2rem 0;
     }
   </style>
 </head>
@@ -289,52 +293,58 @@
       <div class="ornament-line right"></div>
     </div>
 
-    <div class="cover-wrap" id="coverWrap">
+    <div class="cover-wrap">
       <div class="cover-placeholder" id="coverPlaceholder">♪</div>
-      <img id="coverArt" alt="Album cover" src="">
+      <img id="coverArt" alt="Album cover">
     </div>
 
-    <div class="meta">
-      <div class="label">Now Playing</div>
-      <div class="song-title" id="songTitle">—</div>
+    <div class="label">Now Playing</div>
+    <div class="song-title" id="songTitle">—</div>
 
-      <div class="detail-row">
-        <div class="detail-block">
-          <div class="label">Artist</div>
-          <div class="detail-value" id="artistName">—</div>
-        </div>
-        <div class="detail-block">
-          <div class="label">Album</div>
-          <div class="detail-value" id="albumName">—</div>
-        </div>
+    <div class="detail-row">
+      <div class="detail-block">
+        <div class="label">Artist</div>
+        <div class="detail-value" id="metaArtist">—</div>
+      </div>
+      <div class="detail-block">
+        <div class="label">Album</div>
+        <div class="detail-value" id="metaAlbum">—</div>
+      </div>
+      <div class="detail-block track">
+        <div class="label">Track</div>
+        <div class="detail-value" id="metaTrack">—</div>
       </div>
     </div>
 
     <div class="divider"></div>
 
     <div class="player">
-      <!-- Audio source points to ../audio/ folder -->
-      <audio id="audio" preload="metadata">
-        <source src="../audio/fragrance-of-my-land.mp3" type="audio/mpeg">
-      </audio>
+      <audio id="audio" preload="metadata"></audio>
 
-      <!-- Seek bar -->
       <div class="timeline-wrapper">
         <span class="time-label" id="currentTime">0:00</span>
         <input type="range" id="seekBar" min="0" max="100" value="0" step="0.1">
         <span class="time-label right" id="duration">0:00</span>
       </div>
 
-      <!-- Controls -->
       <div class="controls-row">
-        <!-- Play / Pause -->
-        <button class="btn-play" id="playBtn" aria-label="Play">
-          <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-        </button>
-
-        <!-- Volume -->
+        <div class="playback-controls">
+          <button class="btn-skip" id="prevBtn" aria-label="Previous track">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+              <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/>
+            </svg>
+          </button>
+          <button class="btn-play" id="playBtn" aria-label="Play">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+              <path id="playIcon" d="M8 5v14l11-7z"/>
+            </svg>
+          </button>
+          <button class="btn-skip" id="nextBtn" aria-label="Next track">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+              <path d="M6 18l8.5-6L6 6v12zm2.5-6 5.5 4V8l-5.5 4zM16 6h2v12h-2z"/>
+            </svg>
+          </button>
+        </div>
         <div class="vol-row">
           <span class="vol-icon">♪</span>
           <input type="range" class="volume-slider" id="volBar" min="0" max="1" step="0.01" value="1">
@@ -358,47 +368,91 @@
     const volBar   = document.getElementById('volBar');
     const curEl    = document.getElementById('currentTime');
     const durEl    = document.getElementById('duration');
+    const prevBtn  = document.getElementById('prevBtn');
+    const nextBtn  = document.getElementById('nextBtn');
 
     const PLAY_PATH  = "M8 5v14l11-7z";
     const PAUSE_PATH = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
 
-    const MP3_SRC = "../audio/al-hani.mp3";
-    audio.querySelector('source').src = MP3_SRC;
-    audio.load();
+    // Derive this page's filename from the URL (e.g. "song-1.html")
+    const thisFile = window.location.pathname.split('/').pop() || 'index.html';
 
-    // — Read ID3 tags —
-    jsmediatags.read(MP3_SRC, {
-      onSuccess(tag) {
-        const t = tag.tags;
+    let albumTracks = []; // sorted tracks for this album
+    let thisSong    = null;
 
-        document.getElementById('songTitle').textContent  = t.title  || 'Unknown Title';
-        document.getElementById('artistName').textContent = t.artist || 'Unknown Artist';
-        document.getElementById('albumName').textContent  = t.album  || 'Unknown Album';
-        document.title = (t.title || 'Song') + (t.artist ? ' — ' + t.artist : '');
+    // Populate the page from a song entry
+    function applyEntry(song) {
+      document.title = `${song.title} — ${song.artist}`;
+      document.getElementById('songTitle').textContent  = song.title;
+      document.getElementById('metaArtist').textContent = song.artist;
+      document.getElementById('metaAlbum').textContent  = song.album;
+      document.getElementById('metaTrack').textContent  = song.track;
 
-        // Cover art (stored as APIC tag)
-        const pic = t.picture;
-        if (pic) {
-          const bytes = new Uint8Array(pic.data);
-          const blob  = new Blob([bytes], { type: pic.format });
-          const url   = URL.createObjectURL(blob);
-          const img   = document.getElementById('coverArt');
-          img.src     = url;
-          img.onload  = () => {
-            img.classList.add('loaded');
-            document.getElementById('coverPlaceholder').style.display = 'none';
-          };
-        }
-      },
-      onError(err) {
-        console.warn('Could not read ID3 tags:', err.type, err.info);
-        document.getElementById('songTitle').textContent  = 'Unknown Title';
-        document.getElementById('artistName').textContent = 'Unknown Artist';
-        document.getElementById('albumName').textContent  = 'Unknown Album';
+      // Set audio source
+      audio.src = song.audio;
+      audio.load();
+
+      // Set cover art
+      const img = document.getElementById('coverArt');
+      if (song.cover) {
+        img.src = song.cover;
+        img.onload  = () => {
+          img.classList.add('loaded');
+          document.getElementById('coverPlaceholder').style.display = 'none';
+        };
+        img.onerror = () => { img.style.display = 'none'; };
+      } else {
+        img.style.display = 'none';
       }
-    });
+    }
 
-    // — Player controls —
+    // Fetch songs.json, find this page, populate everything
+    fetch('songs.json')
+      .then(r => r.json())
+      .then(songs => {
+        thisSong = songs.find(s => s.file === thisFile);
+
+        if (!thisSong) {
+          document.getElementById('songTitle').textContent = 'Song not found in songs.json';
+          return;
+        }
+
+        applyEntry(thisSong);
+
+        // Build sorted album tracklist for navigation
+        albumTracks = songs
+          .filter(s => s.album === thisSong.album)
+          .sort((a, b) => a.track - b.track);
+      })
+      .catch(err => {
+        console.error('Could not load songs.json:', err);
+        document.getElementById('songTitle').textContent = 'Could not load songs.json';
+      });
+
+    // Navigation
+    function navigateTo(direction) {
+      if (!thisSong || albumTracks.length === 0) return;
+
+      if (albumTracks.length === 1) {
+        // Only track in album — restart
+        audio.currentTime = 0;
+        audio.play();
+        playIcon.setAttribute('d', PAUSE_PATH);
+        return;
+      }
+
+      const idx = albumTracks.findIndex(s => s.file === thisFile);
+      let next  = idx + direction;
+      if (next >= albumTracks.length) next = 0;
+      if (next < 0) next = albumTracks.length - 1;
+
+      window.location.href = albumTracks[next].file;
+    }
+
+    prevBtn.addEventListener('click', () => navigateTo(-1));
+    nextBtn.addEventListener('click', () => navigateTo(+1));
+
+    // Player controls
     function fmt(s) {
       const m   = Math.floor(s / 60);
       const sec = Math.floor(s % 60).toString().padStart(2, '0');
@@ -427,10 +481,7 @@
     });
 
     audio.addEventListener('ended', () => {
-      playIcon.setAttribute('d', PLAY_PATH);
-      seekBar.value = 0;
-      seekBar.style.setProperty('--pct', '0%');
-      curEl.textContent = '0:00';
+      navigateTo(+1);
     });
 
     seekBar.addEventListener('input', () => {

@@ -1,0 +1,29 @@
+[
+  {
+    "file":   "song.html",
+    "title":  "Fragrance of My Land",
+    "artist": "Artist Name",
+    "album":  "Album Name",
+    "track":  1,
+    "audio":  "../audio/fragrance-of-my-land.mp3",
+    "cover":  "../albums/album-name.jpg"
+  },
+  {
+    "file":   "song-2.html",
+    "title":  "Second Song Title",
+    "artist": "Artist Name",
+    "album":  "Album Name",
+    "track":  2,
+    "audio":  "../audio/second-song.mp3",
+    "cover":  "../albums/album-name.jpg"
+  },
+  {
+    "file":   "song-3.html",
+    "title":  "Third Song Title",
+    "artist": "Artist Name",
+    "album":  "Album Name",
+    "track":  3,
+    "audio":  "../audio/third-song.mp3",
+    "cover":  "../albums/album-name.jpg"
+  }
+]
