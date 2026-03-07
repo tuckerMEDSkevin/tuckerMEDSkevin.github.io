@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Song — Al-Hani</title>
+  <!-- ✏️ Edit page title -->
+  <title>Fragrance of My Land — Artist Name</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
   <style>
     :root {
       --green-deep:    #004d26;
       --green-mid:     #006b34;
       --green-vivid:   #009A44;
-      --green-light:   #00c255;
       --gold:          #c8a84b;
       --gold-dim:      #8a6f2e;
       --cream:         #f0ede6;
@@ -33,7 +32,6 @@
       overflow: hidden;
     }
 
-    /* subtle radial glow from centre */
     body::before {
       content: '';
       position: fixed;
@@ -45,7 +43,6 @@
       z-index: 0;
     }
 
-    /* faint repeating diagonal lines texture */
     body::after {
       content: '';
       position: fixed;
@@ -78,7 +75,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* — top ornament — */
     .ornament {
       display: flex;
       align-items: center;
@@ -122,7 +118,6 @@
       transition: opacity .5s ease;
     }
     .cover-wrap img.loaded { opacity: 1; }
-
     .cover-placeholder {
       position: absolute;
       inset: 0;
@@ -242,7 +237,6 @@
       align-items: center;
       justify-content: center;
       transition: background .2s, border-color .2s, box-shadow .2s;
-      position: relative;
     }
     .btn-play:hover {
       background: rgba(0,154,68,0.18);
@@ -259,7 +253,6 @@
     }
     .vol-icon { color: var(--gold-dim); font-size: .85rem; }
 
-    /* — footer — */
     .footer-ornament {
       margin-top: 2rem;
       display: flex;
@@ -268,7 +261,6 @@
       animation: fadeUp .9s .4s ease both;
     }
 
-    /* progress fill via JS inline style trick */
     #seekBar {
       background: linear-gradient(
         to right,
@@ -289,23 +281,28 @@
       <div class="ornament-line right"></div>
     </div>
 
-    <div class="cover-wrap" id="coverWrap">
+    <!-- Cover art: points to ../images/ folder. Remove the <img> line if you have no cover art. -->
+    <div class="cover-wrap">
       <div class="cover-placeholder" id="coverPlaceholder">♪</div>
-      <img id="coverArt" alt="Album cover" src="">
+      <!-- ✏️ Edit cover image filename, or delete this line if you have no cover art -->
+      <img id="coverArt" src="../albums/fragrance-of-my-land.jpg" alt="Album cover">
     </div>
 
     <div class="meta">
       <div class="label">Now Playing</div>
-      <div class="song-title" id="songTitle">—</div>
+      <!-- ✏️ Edit song title -->
+      <div class="song-title">Fragrance of My Land</div>
 
       <div class="detail-row">
         <div class="detail-block">
           <div class="label">Artist</div>
-          <div class="detail-value" id="artistName">—</div>
+          <!-- ✏️ Edit artist name -->
+          <div class="detail-value">Artist Name</div>
         </div>
         <div class="detail-block">
           <div class="label">Album</div>
-          <div class="detail-value" id="albumName">—</div>
+          <!-- ✏️ Edit album name -->
+          <div class="detail-value">Album Name</div>
         </div>
       </div>
     </div>
@@ -313,28 +310,23 @@
     <div class="divider"></div>
 
     <div class="player">
-      <!-- Audio source points to ../audio/ folder -->
+      <!-- ✏️ Edit audio filename to match your MP3 in ../audio/ -->
       <audio id="audio" preload="metadata">
         <source src="../audio/fragrance-of-my-land.mp3" type="audio/mpeg">
       </audio>
 
-      <!-- Seek bar -->
       <div class="timeline-wrapper">
         <span class="time-label" id="currentTime">0:00</span>
         <input type="range" id="seekBar" min="0" max="100" value="0" step="0.1">
         <span class="time-label right" id="duration">0:00</span>
       </div>
 
-      <!-- Controls -->
       <div class="controls-row">
-        <!-- Play / Pause -->
         <button class="btn-play" id="playBtn" aria-label="Play">
-          <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+            <path id="playIcon" d="M8 5v14l11-7z"/>
           </svg>
         </button>
-
-        <!-- Volume -->
         <div class="vol-row">
           <span class="vol-icon">♪</span>
           <input type="range" class="volume-slider" id="volBar" min="0" max="1" step="0.01" value="1">
@@ -362,41 +354,16 @@
     const PLAY_PATH  = "M8 5v14l11-7z";
     const PAUSE_PATH = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
 
-    const MP3_SRC = "../audio/fragrance-of-my-land.mp3";
+    // Show cover only if the image file actually loads; hide gracefully otherwise
+    const coverImg = document.getElementById('coverArt');
+    if (coverImg) {
+      coverImg.onload  = () => {
+        coverImg.classList.add('loaded');
+        document.getElementById('coverPlaceholder').style.display = 'none';
+      };
+      coverImg.onerror = () => { coverImg.style.display = 'none'; };
+    }
 
-    // — Read ID3 tags —
-    jsmediatags.read(MP3_SRC, {
-      onSuccess(tag) {
-        const t = tag.tags;
-
-        document.getElementById('songTitle').textContent  = t.title  || 'Unknown Title';
-        document.getElementById('artistName').textContent = t.artist || 'Unknown Artist';
-        document.getElementById('albumName').textContent  = t.album  || 'Unknown Album';
-        document.title = (t.title || 'Song') + (t.artist ? ' — ' + t.artist : '');
-
-        // Cover art (stored as APIC tag)
-        const pic = t.picture;
-        if (pic) {
-          const bytes = new Uint8Array(pic.data);
-          const blob  = new Blob([bytes], { type: pic.format });
-          const url   = URL.createObjectURL(blob);
-          const img   = document.getElementById('coverArt');
-          img.src     = url;
-          img.onload  = () => {
-            img.classList.add('loaded');
-            document.getElementById('coverPlaceholder').style.display = 'none';
-          };
-        }
-      },
-      onError(err) {
-        console.warn('Could not read ID3 tags:', err.type, err.info);
-        document.getElementById('songTitle').textContent  = 'Unknown Title';
-        document.getElementById('artistName').textContent = 'Unknown Artist';
-        document.getElementById('albumName').textContent  = 'Unknown Album';
-      }
-    });
-
-    // — Player controls —
     function fmt(s) {
       const m   = Math.floor(s / 60);
       const sec = Math.floor(s % 60).toString().padStart(2, '0');
