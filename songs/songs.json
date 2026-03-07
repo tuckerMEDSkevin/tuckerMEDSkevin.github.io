@@ -2,11 +2,11 @@
   {
     "file":   "song.html",
     "title":  "Fragrance of My Land",
-    "artist": "Artist Name",
-    "album":  "Album Name",
+    "artist": "Marisa, Renato",
+    "album":  "Once For Freedom's Sake",
     "track":  1,
     "audio":  "../audio/fragrance-of-my-land.mp3",
-    "cover":  "../albums/album-name.jpg"
+    "cover":  "../albums/Once For Freedom's Sake.jpg"
   },
   {
     "file":   "song-2.html",
