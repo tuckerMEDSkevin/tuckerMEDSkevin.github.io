@@ -6,6 +6,7 @@
   <title>Song — Al-Hani</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
   <style>
     :root {
       --green-deep:    #004d26;
@@ -99,6 +100,38 @@
       background: var(--gold);
       transform: rotate(45deg);
       flex-shrink: 0;
+    }
+
+    /* — cover art — */
+    .cover-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      margin-bottom: 1.6rem;
+      overflow: hidden;
+      border: 1px solid rgba(0,154,68,0.3);
+      background: var(--green-deep);
+      position: relative;
+      animation: fadeUp .9s .12s ease both;
+    }
+    .cover-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity .5s ease;
+    }
+    .cover-wrap img.loaded { opacity: 1; }
+
+    .cover-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green-mid);
+      font-size: 3rem;
+      opacity: .4;
     }
 
     /* — metadata — */
@@ -256,21 +289,23 @@
       <div class="ornament-line right"></div>
     </div>
 
+    <div class="cover-wrap" id="coverWrap">
+      <div class="cover-placeholder" id="coverPlaceholder">♪</div>
+      <img id="coverArt" alt="Album cover" src="">
+    </div>
+
     <div class="meta">
       <div class="label">Now Playing</div>
-      <!-- ✏️ Edit the song title here -->
-      <div class="song-title">Al-Hani</div>
+      <div class="song-title" id="songTitle">—</div>
 
       <div class="detail-row">
         <div class="detail-block">
           <div class="label">Artist</div>
-          <!-- ✏️ Edit artist name -->
-          <div class="detail-value">Artist Name</div>
+          <div class="detail-value" id="artistName">—</div>
         </div>
         <div class="detail-block">
           <div class="label">Album</div>
-          <!-- ✏️ Edit album name -->
-          <div class="detail-value">Album Name</div>
+          <div class="detail-value" id="albumName">—</div>
         </div>
       </div>
     </div>
@@ -280,7 +315,7 @@
     <div class="player">
       <!-- Audio source points to ../audio/ folder -->
       <audio id="audio" preload="metadata">
-        <source src="../audio/al-hani.mp3" type="audio/mpeg">
+        <source src="../audio/fragrance-of-my-land.mp3" type="audio/mpeg">
       </audio>
 
       <!-- Seek bar -->
@@ -324,11 +359,46 @@
     const curEl    = document.getElementById('currentTime');
     const durEl    = document.getElementById('duration');
 
-    const PLAY_PATH = "M8 5v14l11-7z";
+    const PLAY_PATH  = "M8 5v14l11-7z";
     const PAUSE_PATH = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
 
+    const MP3_SRC = "../audio/al-hani.mp3";
+
+    // — Read ID3 tags —
+    jsmediatags.read(MP3_SRC, {
+      onSuccess(tag) {
+        const t = tag.tags;
+
+        document.getElementById('songTitle').textContent  = t.title  || 'Unknown Title';
+        document.getElementById('artistName').textContent = t.artist || 'Unknown Artist';
+        document.getElementById('albumName').textContent  = t.album  || 'Unknown Album';
+        document.title = (t.title || 'Song') + (t.artist ? ' — ' + t.artist : '');
+
+        // Cover art (stored as APIC tag)
+        const pic = t.picture;
+        if (pic) {
+          const bytes = new Uint8Array(pic.data);
+          const blob  = new Blob([bytes], { type: pic.format });
+          const url   = URL.createObjectURL(blob);
+          const img   = document.getElementById('coverArt');
+          img.src     = url;
+          img.onload  = () => {
+            img.classList.add('loaded');
+            document.getElementById('coverPlaceholder').style.display = 'none';
+          };
+        }
+      },
+      onError(err) {
+        console.warn('Could not read ID3 tags:', err.type, err.info);
+        document.getElementById('songTitle').textContent  = 'Unknown Title';
+        document.getElementById('artistName').textContent = 'Unknown Artist';
+        document.getElementById('albumName').textContent  = 'Unknown Album';
+      }
+    });
+
+    // — Player controls —
     function fmt(s) {
-      const m = Math.floor(s / 60);
+      const m   = Math.floor(s / 60);
       const sec = Math.floor(s % 60).toString().padStart(2, '0');
       return `${m}:${sec}`;
     }
