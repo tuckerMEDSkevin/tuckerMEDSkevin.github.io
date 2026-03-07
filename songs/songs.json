@@ -7,5 +7,14 @@
     "track": 6,
     "audio": "../audio/fragrance-of-my-land.mp3",
     "cover": "../albums/once-for-freedoms-sake.png"
+  },
+  {
+    "file": "song-2.html",
+    "title": "Flashback On Sebha",
+    "artist": "Marisa",
+    "album": "Once For Freedom's Sake",
+    "track": 12,
+    "audio": "../audio/flashback-on-sebha.mp3",
+    "cover": "../albums/once-for-freedoms-sake.png"
   }
 ]
