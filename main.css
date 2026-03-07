@@ -12,8 +12,20 @@ body {
   font-family: "Roboto", sans-serif;
   font-weight: 100;
   line-height: 1.7rem;
-  background: no-repeat linear-gradient(250deg, #3c264e, #b93422);
+  background: no-repeat linear-gradient(250deg, #239E46, #239E46);
   min-height: 100%;
+}
+.jamahiriya-playlist-container {
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px white;
+  padding: 3rem;
+  text-shadow: 0 1px #00000010;
+  width: 60%;
+  margin: 5rem auto;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(360deg, transparent, #ffffff);
+  min-height: 100vh;
 }
 .quiz-container {
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
