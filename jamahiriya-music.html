@@ -1,28 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Jamahiriya Music from Libya</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Open Sans" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-	<link rel="icon" href="./images/libya.svg">
-	<meta charset="UTF-8">
-	<meta property="og:title" content="Jamahiriya Libyan Music Playlist" />
-	<!--
-	<meta property="og:description" content="Which Montreal band are you?" />
-	<meta property="og:image" content="http://tuckermedskevin.github.io/images/montrealbandsquiz.jpg" />
-	<meta property="og:image:secure_url" content="https://tuckermedskevin.github.io/images/montrealbandsquiz.jpg" />
-	<meta property="og:url" content="https://tuckermedskevin.github.io/montreal-band-quiz.html" />
-	-->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jamahiriya Music</title>
+  <style>
+    :root {
+      --green-deep:  #004d26;
+      --green-mid:   #006b34;
+      --green-vivid: #009A44;
+      --gold:        #c8a84b;
+      --gold-dim:    #8a6f2e;
+      --cream:       #f0ede6;
+      --cream-dim:   #b8b49a;
+      --bg:          #021a0d;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100vh;
+      background-color: var(--bg);
+      color: var(--cream);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 20%, rgba(0,154,68,0.1) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 50% 100%, rgba(0,77,38,0.2) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent, transparent 14px,
+        rgba(0,154,68,0.03) 14px, rgba(0,154,68,0.03) 15px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 4rem 2rem 5rem;
+    }
+
+    /* — header — */
+    header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+      animation: fadeUp .8s ease both;
+    }
+
+    .site-title {
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: .6rem;
+    }
+
+    .site-subtitle {
+      font-size: .72rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+
+    .header-rule {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-top: 1.4rem;
+    }
+    .header-rule-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim));
+    }
+    .header-rule-line.right {
+      background: linear-gradient(to left, transparent, var(--gold-dim));
+    }
+    .header-rule-diamond {
+      color: var(--gold);
+      font-size: .75rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    /* — album groups — */
+    .album-group {
+      margin-bottom: 2.8rem;
+      animation: fadeUp .8s ease both;
+    }
+
+    .album-title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--green-vivid);
+      margin-bottom: .9rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid rgba(0,154,68,0.3);
+    }
+
+    /* — song rows — */
+    .song-row {
+      display: flex;
+      align-items: baseline;
+      gap: .75rem;
+      padding: .45rem 0;
+      border-bottom: 1px solid rgba(0,154,68,0.1);
+      text-decoration: none;
+      transition: background .15s;
+      border-radius: 2px;
+      padding-left: .3rem;
+      padding-right: .3rem;
+    }
+    .song-row:last-child {
+      border-bottom: none;
+    }
+    .song-row:hover {
+      background: rgba(0,154,68,0.08);
+    }
+
+    .track-num {
+      font-size: .7rem;
+      color: var(--gold-dim);
+      letter-spacing: .05em;
+      width: 1.4rem;
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    .song-title {
+      font-size: .95rem;
+      color: var(--cream-dim);
+      flex: 1;
+      transition: color .15s;
+    }
+    .song-row:hover .song-title {
+      color: var(--cream);
+    }
+
+    .song-arrow {
+      font-size: .7rem;
+      color: var(--gold-dim);
+      opacity: 0;
+      transition: opacity .15s;
+    }
+    .song-row:hover .song-arrow {
+      opacity: 1;
+    }
+
+    /* — loading / error states — */
+    .status {
+      text-align: center;
+      color: var(--gold-dim);
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3rem 0;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="page">
 
-<div class="jamahiriya-playlist-container">
-	<div class="title">Jamahiriya Libyan Music Playlist</div>
-	Day 1
-</div>
+    <header>
+      <div class="site-title">Jamahiriya Music</div>
+      <div class="site-subtitle">Song Library</div>
+      <div class="header-rule">
+        <div class="header-rule-line"></div>
+        <div class="header-rule-diamond">&#9770;</div>
+        <div class="header-rule-line right"></div>
+      </div>
+    </header>
 
+    <main id="content">
+      <div class="status" id="status">Loading…</div>
+    </main>
+
+  </div>
+
+  <script>
+    fetch('songs/songs.json')
+      .then(r => r.json())
+      .then(songs => {
+        const content = document.getElementById('content');
+        const status  = document.getElementById('status');
+
+        if (!songs.length) {
+          status.textContent = 'No songs yet.';
+          return;
+        }
+
+        status.remove();
+
+        // Group by album
+        const albumMap = {};
+        for (const song of songs) {
+          if (!albumMap[song.album]) albumMap[song.album] = [];
+          albumMap[song.album].push(song);
+        }
+
+        // Sort albums alphabetically
+        const albums = Object.keys(albumMap).sort((a, b) => a.localeCompare(b));
+
+        albums.forEach((album, i) => {
+          const tracks = albumMap[album].sort((a, b) => a.track - b.track);
+
+          const group = document.createElement('div');
+          group.className = 'album-group';
+          group.style.animationDelay = `${i * 0.07}s`;
+
+          const heading = document.createElement('div');
+          heading.className = 'album-title';
+          heading.textContent = album;
+          group.appendChild(heading);
+
+          for (const song of tracks) {
+            const link = document.createElement('a');
+            link.className = 'song-row';
+            link.href = `songs/${song.file}`;
+
+            const num = document.createElement('span');
+            num.className = 'track-num';
+            num.textContent = song.track;
+
+            const title = document.createElement('span');
+            title.className = 'song-title';
+            title.textContent = song.title;
+
+            const arrow = document.createElement('span');
+            arrow.className = 'song-arrow';
+            arrow.textContent = '→';
+
+            link.appendChild(num);
+            link.appendChild(title);
+            link.appendChild(arrow);
+            group.appendChild(link);
+          }
+
+          content.appendChild(group);
+        });
+      })
+      .catch(() => {
+        document.getElementById('status').textContent = 'Could not load songs.json';
+      });
+  </script>
 </body>
-
 </html>

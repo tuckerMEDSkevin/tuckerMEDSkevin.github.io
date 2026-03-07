@@ -104,9 +104,9 @@
       background: linear-gradient(to left, transparent, var(--gold-dim));
     }
     .ornament-diamond {
-      width: 7px; height: 7px;
-      background: var(--gold);
-      transform: rotate(45deg);
+      color: var(--gold);
+      font-size: .75rem;
+      line-height: 1;
       flex-shrink: 0;
     }
 
@@ -329,7 +329,7 @@
 
     <div class="ornament">
       <div class="ornament-line"></div>
-      <div class="ornament-diamond"></div>
+      &#9770;
       <div class="ornament-line right"></div>
     </div>
 
@@ -421,7 +421,7 @@
 
     <div class="footer-ornament">
       <div class="ornament-line"></div>
-      <div class="ornament-diamond"></div>
+      &#9770;
       <div class="ornament-line right"></div>
     </div>
 
@@ -537,6 +537,11 @@
 
     audio.addEventListener('loadedmetadata', () => {
       durEl.textContent = fmt(audio.duration);
+      audio.play().then(() => {
+        playIcon.setAttribute('d', PAUSE_PATH);
+      }).catch(() => {
+        // Autoplay blocked by browser — user must press play manually
+      });
     });
 
     audio.addEventListener('timeupdate', () => {

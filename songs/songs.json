@@ -7,14 +7,5 @@
     "track": 6,
     "audio": "../audio/fragrance-of-my-land.mp3",
     "cover": "../albums/once-for-freedoms-sake.png"
-  },
-  {
-    "file": "once-for-freedoms-sake.html",
-    "title": "Once For Freedom's Sake",
-    "artist": "Renato",
-    "album": "Once For Freedom's Sake",
-    "track": 9,
-    "audio": "../audio/once-for-freedoms-sake.mp3",
-    "cover": "../albums/once-for-freedoms-sake.png"
   }
 ]
