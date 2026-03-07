@@ -4,6 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jamahiriya Music</title>
+
+  <link rel="icon" type="image/svg+xml" href="images/Flag_of_Libya.svg">
+
+  <meta property="og:title"       content="Jamahiriya Music — Song Library">
+  <meta property="og:description" content="Funk, disco and pop recorded under Gaddafi's Jamahiriya — state-sponsored music from the 1970s–90s, produced in Malta and Italy to spread the message of the Green Book.">
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://tuckermedskevin.github.io/jamahiriya-music.html">
+  <meta property="og:image"       content="https://tuckermedskevin.github.io/images/Gaddafi-music.png">
+  <meta property="og:image:alt"   content="Jamahiriya Music">
+  <meta property="og:site_name"   content="Jamahiriya Music">
+
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Jamahiriya Music — Song Library">
+  <meta name="twitter:description" content="Funk, disco and pop recorded under Gaddafi's Jamahiriya — state-sponsored music from the 1970s–90s, produced in Malta and Italy to spread the message of the Green Book.">
+  <meta name="twitter:image"       content="https://tuckermedskevin.github.io/images/Gaddafi-music.png">
   <style>
     :root {
       --green-deep:  #004d26;
@@ -69,9 +84,9 @@
     }
 
     .site-title {
-      font-size: 1.5rem;
+      font-size: clamp(1.1rem, 5vw, 1.5rem);
       font-weight: 500;
-      letter-spacing: .18em;
+      letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--cream);
       margin-bottom: .6rem;
@@ -127,19 +142,23 @@
       display: flex;
       align-items: baseline;
       gap: .75rem;
-      padding: .45rem 0;
+      padding: .6rem .3rem;
       border-bottom: 1px solid rgba(0,154,68,0.1);
       text-decoration: none;
       transition: background .15s;
       border-radius: 2px;
-      padding-left: .3rem;
-      padding-right: .3rem;
     }
     .song-row:last-child {
       border-bottom: none;
     }
     .song-row:hover {
       background: rgba(0,154,68,0.08);
+    }
+
+    @media (hover: none) {
+      /* Touch devices — always show arrow, slightly larger tap area */
+      .song-arrow { opacity: 1 !important; }
+      .song-row { padding-top: .75rem; padding-bottom: .75rem; }
     }
 
     .track-num {

@@ -18,6 +18,7 @@
   <meta name="twitter:image"       content="https://tuckermedskevin.github.io/once-for-freedoms-sake.png">
 
   <title>Jamahiriya Song of the Day</title>
+  <link rel="icon" type="image/svg+xml" href="images/Flag_of_Libya.svg">
 
   <style>
     :root {
@@ -99,13 +100,14 @@
 
     /* — page title — */
     .page-title {
-      font-size: .7rem;
-      font-weight: 500;
-      letter-spacing: .25em;
+      font-size: clamp(1rem, 5vw, 1.5rem);
+      font-weight: 700;
+      letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--gold);
       text-align: center;
       margin-bottom: 1.8rem;
+      line-height: 1.2;
     }
 
     /* — ornament — */
@@ -169,7 +171,7 @@
     }
 
     .song-title {
-      font-size: 1.85rem;
+      font-size: clamp(1.2rem, 5.5vw, 1.85rem);
       font-weight: 600;
       color: var(--cream);
       line-height: 1.15;
@@ -426,14 +428,16 @@
       loopBtn.setAttribute('aria-pressed', loopOne);
     });
 
-    // Cover art
+    // Cover art — check the attribute, not the property (empty src resolves to a full URL in JS)
     const coverImg = document.getElementById('coverArt');
-    if (coverImg.src) {
+    if (coverImg.getAttribute('src')) {
       coverImg.onload  = () => {
         coverImg.classList.add('loaded');
         document.getElementById('coverPlaceholder').style.display = 'none';
       };
       coverImg.onerror = () => { coverImg.style.display = 'none'; };
+    } else {
+      coverImg.style.display = 'none';
     }
 
     function fmt(s) {
