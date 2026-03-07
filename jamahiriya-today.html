@@ -161,6 +161,45 @@
       opacity: .4;
     }
 
+    /* — mobile compact: cover + metadata side by side — */
+    .top-section {
+      display: block;
+    }
+
+    @media (max-width: 519px) {
+      .top-section {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        margin-bottom: 1.2rem;
+      }
+      .top-section .cover-wrap {
+        width: 42%;
+        flex-shrink: 0;
+        margin-bottom: 0;
+        aspect-ratio: 1 / 1;
+      }
+      .top-section .meta {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .top-section .meta .song-title {
+        font-size: clamp(1rem, 4.5vw, 1.4rem);
+        margin-bottom: .8rem;
+      }
+      .top-section .meta .detail-row {
+        gap: .6rem;
+        flex-wrap: wrap;
+      }
+      .top-section .meta .detail-value {
+        font-size: clamp(.75rem, 2.8vw, .95rem);
+      }
+      .divider { margin: .8rem 0; }
+    }
+
     /* — metadata — */
     .label {
       font-size: .62rem;
@@ -328,28 +367,32 @@
       <div class="ornament-line right"></div>
     </div>
 
-    <div class="cover-wrap">
-      <div class="cover-placeholder" id="coverPlaceholder">♪</div>
-      <!-- ✏️ Updated by update_sotd.py — do not edit manually -->
-      <img id="coverArt" src="albums/once-for-freedoms-sake.png" alt="Album cover">
-    </div>
-
-    <div class="label">Now Playing</div>
-    <!-- ✏️ Updated by update_sotd.py — do not edit manually -->
-    <div class="song-title" id="songTitle">Fragrance Of My Land</div>
-
-    <div class="detail-row">
-      <div class="detail-block">
-        <div class="label">Artist</div>
-        <div class="detail-value" id="metaArtist">Renato</div>
+    <div class="top-section">
+      <div class="cover-wrap">
+        <div class="cover-placeholder" id="coverPlaceholder">♪</div>
+        <!-- ✏️ Updated by update_sotd.py — do not edit manually -->
+        <img id="coverArt" src="albums/once-for-freedoms-sake.png" alt="Album cover">
       </div>
-      <div class="detail-block">
-        <div class="label">Album</div>
-        <div class="detail-value" id="metaAlbum">Once For Freedom's Sake</div>
-      </div>
-      <div class="detail-block track">
-        <div class="label">Track</div>
-        <div class="detail-value" id="metaTrack">6</div>
+
+      <div class="meta">
+        <div class="label">Now Playing</div>
+        <!-- ✏️ Updated by update_sotd.py — do not edit manually -->
+        <div class="song-title" id="songTitle">Fragrance Of My Land</div>
+
+        <div class="detail-row">
+          <div class="detail-block">
+            <div class="label">Artist</div>
+            <div class="detail-value" id="metaArtist">Renato</div>
+          </div>
+          <div class="detail-block">
+            <div class="label">Album</div>
+            <div class="detail-value" id="metaAlbum">Once For Freedom's Sake</div>
+          </div>
+          <div class="detail-block track">
+            <div class="label">Track</div>
+            <div class="detail-value" id="metaTrack">6</div>
+          </div>
+        </div>
       </div>
     </div>
 
