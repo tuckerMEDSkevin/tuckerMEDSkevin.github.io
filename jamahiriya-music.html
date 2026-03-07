@@ -84,12 +84,23 @@
     }
 
     .site-title {
-      font-size: clamp(1.1rem, 5vw, 1.5rem);
-      font-weight: 500;
+      font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+      font-size: clamp(1.5rem, 6vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .45rem;
+    }
+
+    .site-tagline {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: clamp(.7rem, 2.8vw, .82rem);
+      font-weight: 400;
       letter-spacing: .12em;
       text-transform: uppercase;
-      color: var(--cream);
-      margin-bottom: .6rem;
+      color: var(--cream-dim);
+      margin-bottom: .55rem;
     }
 
     .site-subtitle {
@@ -211,6 +222,7 @@
 
     <header>
       <div class="site-title">Jamahiriya Music</div>
+      <div class="site-tagline">Songs from Gaddafi-era Libya</div>
       <div class="site-subtitle">Song Library</div>
       <div class="header-rule">
         <div class="header-rule-line"></div>
