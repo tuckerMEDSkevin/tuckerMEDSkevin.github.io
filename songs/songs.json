@@ -1,5 +1,14 @@
 [
   {
+    "file": "from-libya-always-comes-something-new.html",
+    "title": "From Libya Always Comes Something New",
+    "artist": "Joe Cutajar",
+    "album": "Jamahiriya",
+    "track": 11,
+    "audio": "../audio/from-libya-always-comes-something-new.mp3",
+    "cover": "../albums/jamahiriya.png"
+  },
+  {
     "file": "fragrance-of-my-land.html",
     "title": "Fragrance Of My Land",
     "artist": "Renato",
