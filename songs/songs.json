@@ -16,5 +16,14 @@
     "track": 6,
     "audio": "../audio/fragrance-of-my-land.mp3",
     "cover": "../albums/once-for-freedoms-sake.png"
+  },
+  {
+    "file": "tadhamon.html",
+    "title": "Tadhamon",
+    "artist": "Marisa",
+    "album": "Rahiba Thawriyah",
+    "track": 12,
+    "audio": "../audio/tadhamon.mp3",
+    "cover": "../albums/rahiba-thawriyah.jpg"
   }
 ]
