@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jamahiriya 404</title>
+  <link rel="icon" type="image/svg+xml" href="images/Flag_of_Libya.svg">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      text-align: center;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+      color: #c8a84b;
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 8px #000, 0 0 20px #000;
+    }
+
+    p {
+      color: #f0ede6;
+      font-size: 15px;
+      text-shadow: 1px 1px 4px #000, 0 0 10px #000;
+    }
+
+    p a {
+      color: #c8a84b;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bg"></canvas>
+
+  <div class="content">
+    <h1>Jamahiriya 404</h1>
+    <p>The Brother Leader wouldn't want you to be here. <a href="jamahiriya-today.html">Go back.</a></p>
+  </div>
+
+  <script>
+    const stamps = [
+      'stamps/gaddafi-stamps.jpg',
+      'stamps/gaddafi-stamps1.jpg',
+      'stamps/gaddafi-stamps2.jpg',
+      'stamps/gaddafi-stamps3.jpg',
+      'stamps/gaddafi-stamps4.jpg',
+      'stamps/gaddafi-stamps5.jpg',
+      'stamps/gaddafi-stamps6.jpg',
+      'stamps/gaddafi-stamps7.jpg',
+      'stamps/gaddafi-stamps8.jpg',
+      'stamps/gaddafi-stamps9.jpg',
+      'stamps/gaddafi-stamps10.jpg',
+      'stamps/gaddafi-stamps11.jpg',
+      'stamps/gaddafi-stamps12.jpg',
+      'stamps/gaddafi-stamps13.jpg',
+      'stamps/gaddafi-stamps14.jpg',
+    ];
+
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    const TILE = 320; // target tile height in px
+
+    let loaded = 0;
+    const imgs = stamps.map(src => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => { loaded++; if (loaded === stamps.length) draw(); };
+      img.onerror = () => { loaded++; if (loaded === stamps.length) draw(); };
+      return img;
+    });
+
+    // Infinite shuffled sequence of indices
+    function makeSeq() {
+      let seq = [];
+      while (seq.length < 300) {
+        const s = imgs.map((_, i) => i).sort(() => Math.random() - 0.5);
+        seq = seq.concat(s);
+      }
+      return seq;
+    }
+
+    function draw() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const seq = makeSeq();
+      let si = 0, y = 0;
+
+      while (y < canvas.height) {
+        // Accumulate stamps into a row until natural widths exceed canvas width
+        const row = [];
+        let totalW = 0;
+        while (totalW < canvas.width) {
+          const img = imgs[seq[si++ % seq.length]];
+          if (!img || !img.naturalWidth) continue;
+          const w = (img.naturalWidth / img.naturalHeight) * TILE;
+          row.push({ img, w });
+          totalW += w;
+        }
+
+        // Scale the whole row so it fills canvas.width exactly — no gaps
+        const scale = canvas.width / totalW;
+        const rowH  = TILE * scale;
+
+        let x = 0;
+        for (const { img, w } of row) {
+          const drawW = w * scale;
+          ctx.drawImage(img, x, y, drawW, rowH);
+          x += drawW;
+        }
+        y += rowH;
+      }
+    }
+
+    window.addEventListener('resize', draw);
+  </script>
+
+</body>
+</html>
