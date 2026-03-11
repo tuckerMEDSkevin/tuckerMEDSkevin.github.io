@@ -2,5 +2,18 @@
 /songs/add_song.py
 /songs/remove_song.py
 /songs/song.html
-update_sotd.py
-publish_sotd.py
+/update_sotd.py
+/publish_sotd.py
+/images/*
+!/images/Flag_of_Libya.svg
+!/images/Gaddafi-music.png
+
+# old stuff
+/montreal-promoter-quiz.html
+/montreal-band-quiz.html
+/main-bands.js
+/main.css
+/questions-bands.js
+/promoter-questions.js
+/promoter-main.js
+/promoter-main.css
