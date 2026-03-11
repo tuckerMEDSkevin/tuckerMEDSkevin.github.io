@@ -1,5 +1,14 @@
 [
   {
+    "file": "in-jamahiriya.html",
+    "title": "In Jamahiriya",
+    "artist": "Bayzo",
+    "album": "Freedom Diary",
+    "track": 4,
+    "audio": "../audio/in-jamahiriya.mp3",
+    "cover": "../albums/freedom-diary.jpg"
+  },
+  {
     "file": "from-libya-always-comes-something-new.html",
     "title": "From Libya Always Comes Something New",
     "artist": "Joe Cutajar",
