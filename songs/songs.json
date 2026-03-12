@@ -27,6 +27,15 @@
     "cover": "../albums/once-for-freedoms-sake.png"
   },
   {
+    "file": "hey-ho-sports-for-everyone.html",
+    "title": "Hey! Ho! Sports for Everyone",
+    "artist": "Renato",
+    "album": "Rahiba Thawriyah",
+    "track": 6,
+    "audio": "../audio/hey-ho-sports-for-everyone.mp3",
+    "cover": "../albums/rahiba-thawriyah.jpg"
+  },
+  {
     "file": "tadhamon.html",
     "title": "Tadhamon",
     "artist": "Marisa",
