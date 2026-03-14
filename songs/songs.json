@@ -36,6 +36,15 @@
     "cover": "../albums/rahiba-thawriyah.jpg"
   },
   {
+    "file": "wealth-arms-authority.html",
+    "title": "Wealth Arms & Authority",
+    "artist": "Mary Rose Mallia",
+    "album": "Rahiba Thawriyah",
+    "track": 10,
+    "audio": "../audio/wealth-arms-authority.mp3",
+    "cover": "../albums/rahiba-thawriyah.jpg"
+  },
+  {
     "file": "tadhamon.html",
     "title": "Tadhamon",
     "artist": "Marisa",
