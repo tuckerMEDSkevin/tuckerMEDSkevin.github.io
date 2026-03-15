@@ -9,6 +9,15 @@
     "cover": "../albums/freedom-diary.jpg"
   },
   {
+    "file": "lehen-il-poplu.html",
+    "title": "Lehen Il-Poplu",
+    "artist": "Mary Rose Mallia",
+    "album": "Jamahiriya",
+    "track": 5,
+    "audio": "../audio/lehen-il-poplu.mp3",
+    "cover": "../albums/jamahiriya.png"
+  },
+  {
     "file": "from-libya-always-comes-something-new.html",
     "title": "From Libya Always Comes Something New",
     "artist": "Joe Cutajar",
