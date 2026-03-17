@@ -1,5 +1,14 @@
 [
   {
+    "file": "mujahidin.html",
+    "title": "Mujahidin",
+    "artist": "Tony Camilleri",
+    "album": "Desert In Motion",
+    "track": 16,
+    "audio": "../audio/mujahidin.mp3",
+    "cover": "../albums/desert-in-motion.png"
+  },
+  {
     "file": "in-jamahiriya.html",
     "title": "In Jamahiriya",
     "artist": "Bayzo",
