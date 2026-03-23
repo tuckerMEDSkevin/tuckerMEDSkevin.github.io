@@ -36,6 +36,15 @@
     "cover": "../albums/jamahiriya.png"
   },
   {
+    "file": "in-nome-dell-islam.html",
+    "title": "In Nome Dell' Islam",
+    "artist": "Mary Rose Mallia",
+    "album": "L'epoca Del Popolo",
+    "track": 11,
+    "audio": "../audio/in-nome-dell-islam.mp3",
+    "cover": "../albums/lepoca-del-popolo.png"
+  },
+  {
     "file": "fragrance-of-my-land.html",
     "title": "Fragrance Of My Land",
     "artist": "Renato",
