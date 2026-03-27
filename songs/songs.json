@@ -36,6 +36,15 @@
     "cover": "../albums/jamahiriya.png"
   },
   {
+    "file": "time-for-a-change.html",
+    "title": "Time for a Change",
+    "artist": "Marisa",
+    "album": "Jamahiriya Vol. 2",
+    "track": 12,
+    "audio": "../audio/time-for-a-change.mp3",
+    "cover": "../albums/jamahiriya-vol-2.png"
+  },
+  {
     "file": "in-nome-dell-islam.html",
     "title": "In Nome Dell' Islam",
     "artist": "Mary Rose Mallia",
