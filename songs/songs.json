@@ -54,6 +54,15 @@
     "cover": "../albums/lepoca-del-popolo.png"
   },
   {
+    "file": "all-of-the-people.html",
+    "title": "All Of The People",
+    "artist": "Bayzo",
+    "album": "Maitiga",
+    "track": 3,
+    "audio": "../audio/all-of-the-people.mp3",
+    "cover": "../albums/maitiga.png"
+  },
+  {
     "file": "fragrance-of-my-land.html",
     "title": "Fragrance Of My Land",
     "artist": "Renato",
